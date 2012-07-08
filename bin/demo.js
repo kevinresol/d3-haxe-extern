@@ -40,7 +40,7 @@ Test.callable = function(name) {
 }
 Test.prototype = {
 	pie: function() {
-		var data = Test.datas[0];
+		var data = [200,200,200,200,200];
 		var i = 1;
 		var w = 960;
 		var h = 500;
@@ -53,8 +53,7 @@ Test.prototype = {
 			return color(i1);
 		}).attr("d",arc);
 		d3.select(js.Lib.window).on("click",function() {
-			data = Test.datas[i];
-			if(i++ == 1) i = 0;
+			data = d3.range(5).map(Test.randomIrwinHall(2));
 			arcs.data(donut(data));
 			arcs.attr("d",arc);
 		});
@@ -366,7 +365,6 @@ js.Boot.__init();
 		};
 	}
 }
-Test.datas = [[53245,28479,19697,24037,40245],[200,200,200,200,200]];
 js.Lib.onerror = null;
 Demo.main();
 })()

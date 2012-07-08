@@ -17,8 +17,6 @@ class Demo {
 
 class Test {
 	
-	static private var datas:Array<Array<Int>> = [[53245, 28479, 19697, 24037, 40245], [200, 200, 200, 200, 200]];
-	
 	public function new() {
         
 		D3.select("#test")
@@ -29,13 +27,14 @@ class Test {
 			.style("background-color", "grey");
 		
 		pie();
+		
 		histogram();
 	}
 	
 	private function pie() {
 		
 		/* pie test... */		
-		var data	= datas[0];
+		var data	= [200,200,200,200,200];
 		var i		= 1;
 		var w 		= 960;
 		var	h 		= 500;
@@ -57,9 +56,7 @@ class Test {
 			.attr("d", arc);
 		
 		D3.select(Lib.window).on("click", function() {
-			data = datas[i]; // swap the data
-			if (i++ == 1) i = 0;
-			
+			data = D3.range(5).map(randomIrwinHall(2));
 			arcs.data(callable("donut")(data)); // update the data
 			arcs.attr("d", arc); // redraw the arcs
 		});
@@ -67,7 +64,7 @@ class Test {
 	
 	private function histogram(){
 		
-		var values:Dynamic = D3.range(1000).map(randomIrwinHall(10));
+		var values:Array<Float> = D3.range(1000).map(randomIrwinHall(10));
 		
 		// A formatter for counts.
 		var formatCount = D3.format(",.0f");
@@ -84,13 +81,11 @@ class Test {
 		var data:Histogram = D3.layout.histogram().bins(x.ticks(20))(values);
 		
 		var y:Dynamic = D3.scale.linear()
-			.domain([0, D3.max(data, function(d) { 
-				return d.y;
-			})])
+			.domain([0, D3.max(data, function(d) { return d.y; })])
 			.range([height, 0]);
 		
 		var xAxis = D3.svg.axis().scale(x);
-
+		
 		var svg = D3.select("body").append("svg")
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
@@ -129,6 +124,7 @@ class Test {
 	  };
 	}
 	
+	/** get a dynamic reference to an object (class) so you can call it as a function in js) */
 	private static inline function callable(name:String):Dynamic {
 		return untyped __js__(name);
 	}
