@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<style>
+		body {
+		  font: 10px sans-serif;
+		}
+		.bar rect {
+		  fill: steelblue;
+		  shape-rendering: crispEdges;
+		}
+		.bar text {
+		  fill: #fff;
+		}
+		.axis path, .axis line {
+		  fill: none;
+		  stroke: #000;
+		  shape-rendering: crispEdges;
+		}
+</style>
+	</head>
 	<body>
-		<div id="haxe:trace">
-		</div>
-		<div id="test"></div>		
-
-                <script src="http://mbostock.github.com/d3/d3.v2.js" type="text/javascript" charset="utf-8"></script>
-                <script src="demo.js" type="text/javascript" charset="utf-8"></script>
+		<div id="haxe:trace"></div>
+		<div id="test"></div>
+		<script src="http://d3js.org/d3.v2.min.js?2.9.6" type="text/javascript" charset="utf-8"></script>
+		<script src="demo-debug.js" type="text/javascript" charset="utf-8"></script>
 	</body>
 </html>
