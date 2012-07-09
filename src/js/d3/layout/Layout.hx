@@ -112,11 +112,6 @@ extern class Force implements ArrayAccess<Dynamic> {
 @:native("d3.layout.pie")
 extern class Pie implements ArrayAccess<Dynamic> {
 	
-	//public function callable():Dynamic { return this; }
-	public function call(object:Dynamic):Pie {
-		return __js__("this")(object);
-	}
-	
 	/*https://github.com/mbostock/d3/wiki/Pie-Layout*/
 	@:overload(function():Dynamic{})	
 	public function value(value:Dynamic):Pie;
