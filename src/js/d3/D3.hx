@@ -8,7 +8,8 @@ import js.d3.geom.Geometry;
 import js.d3.layout.Layout;
 import js.d3.math.Random;
 import js.d3.math.Transform;
-import js.d3.selection.UnboundSelection;
+import js.d3.scale.Scale;
+import js.d3.selection.Selection;
 import js.d3.svg.SVG;
 import js.d3.time.Time;
 import js.d3.transition.Transition;
@@ -17,36 +18,50 @@ import js.Dom;
 @:native("d3")
 extern class D3
 {
-    @:overload(function(selector:Dynamic):UnboundSelection{})
-    public static function select(selector:String):UnboundSelection;
+   
+	/*https://github.com/mbostock/d3/wiki/Selections*/
+	@:overload(function(selector:HtmlDom):Selection{})
+    public static function select(selector:String):Selection;
+	
+    @:overload(function(selector:Array<HtmlDom>):Selection{})
+    public static function selectAll(selector:String):Selection;
 
-    @:overload(function(selector:Array<HtmlDom>):UnboundSelection{})
-    public static function selectAll(selector:String):UnboundSelection;
-
+	/*Returns the root selection, equivalent to d3.select(document.documentElement)*/
+	public static function selection():Selection;
+	
+	/** Stores the current event, if any. 
+	 * This global is during an event listener callback registered with the on operator. 
+	 * The current event is reset after the listener is notified in a finally block. 
+	 * This allows the listener function to have the same form as other operator functions, being passed the current datum d and index i.
+	 */
     public static var event:Event;
-    public static var scale:js.d3.scale.Scale;
-	public static var time:Time;
-	public static var svg:SVG;
-	public static var random:Random;
-	public static var layout:Layout;
-	public static var geo:Geography;
-	public static var geom:Geometry;
-	public static var behavior:Behaviors;
+	
 	
 	/**
 	 * Returns the x and y coordinates of the current d3.event, relative to the specified container. 
 	 * The container may be an HTML or SVG container element, such as an svg:g or svg:svg. 
 	 * The coordinates are returned as a two-element array [x, y].
 	 */
-    public static function mouse(container:Dynamic):Array<Int>;
+    public static function mouse(container:HtmlDom):Array<Int>;
+	
 	
 	/**
 	 * Returns the x and y coordinates of each touch associated with the current d3.event, based on the touches attribute, relative to the specified container.
 	 * The container may be an HTML or SVG container element, such as an svg:g or svg:svg. 
 	 * The coordinates are returned as an array of two-element arrays [ [x1, y1], [x2, y2], … ].
 	 */
-    public static function touches(container:Dynamic):Array<Array<Int>>;
-
+    public static function touches(container:HtmlDom):Array<Array<Int>>;
+	
+	
+    public static var scale		:Scale;
+	public static var time		:Time;
+	public static var svg		:SVG;
+	public static var random	:Random;
+	public static var layout	:Layout;
+	public static var geo		:Geography;
+	public static var geom		:Geometry;
+	public static var behavior	:Behaviors;
+	
 	
 	@:overload(function(type:String, ?a:Dynamic,?b:Dynamic,?c:Dynamic,?d:Dynamic):Float->Float{})
     public static function ease(type:String):Float->Float;
@@ -67,7 +82,7 @@ extern class D3
 	public static var interpolators:Array<Dynamic>;
 	
 	public static function transform(name:String):Transform;
-	public static function transition(?selection:UnboundSelection):Transition;
+	public static function transition(?selection:Selection):Transition;
 	
 	@:overload(function(fn:Dynamic->Bool):Void{})
     public static function timer(fn:Void->Bool):Void;
@@ -124,7 +139,9 @@ extern class D3
 	
 	
 	/* String Formatting */
-	public static function format(specifier:Dynamic):Dynamic;
+	@:overload(function(specifier:Dynamic):Dynamic{})
+	public static function format(specifier:String):Dynamic;
+	
 	public static function requote(s:String):String;
 	public static function round(x:Float, ?n:Int):Float;
 	

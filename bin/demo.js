@@ -9,7 +9,7 @@ var Demo = function() { }
 $hxClasses["Demo"] = Demo;
 Demo.__name__ = ["Demo"];
 Demo.main = function() {
-	haxe.Log.trace("hi",{ fileName : "Demo.hx", lineNumber : 13, className : "Demo", methodName : "main"});
+	haxe.Log.trace("hi",{ fileName : "Demo.hx", lineNumber : 16, className : "Demo", methodName : "main"});
 	var t = new Test();
 }
 Demo.prototype = {
@@ -35,7 +35,7 @@ Test.randomIrwinHall = function(m) {
 		return s / m;
 	};
 }
-Test.callable = function(name) {
+Test.getDynamic = function(name) {
 	return __js__(name);
 }
 Test.prototype = {
@@ -52,7 +52,7 @@ Test.prototype = {
 		var arcs = svg.selectAll("path").data(donut(data)).enter().append("svg:path").attr("fill",function(d,i1) {
 			return color(i1);
 		}).attr("d",arc);
-		d3.select(js.Lib.window).on("click",function() {
+		d3.select(js.Lib.document).on("click",function(datum,index) {
 			data = d3.range(5).map(Test.randomIrwinHall(2));
 			arcs.data(donut(data));
 			arcs.attr("d",arc);

@@ -1,10 +1,13 @@
 import js.d3.D3;
+import js.d3.scale.Scale;
 
-import js.d3.selection.UnboundSelection;
+import js.d3.selection.Selection;
 import js.d3.selection.Selection;
 import js.d3.layout.Layout;
 
 import js.Lib;
+import js.Dom;
+
 using js.HTML5Array;
 
 class Demo {
@@ -16,6 +19,7 @@ class Demo {
 }
 
 class Test {
+	
 	
 	public function new() {
         
@@ -30,6 +34,7 @@ class Test {
 		
 		histogram();
 	}
+	
 	
 	private function pie() {
 		
@@ -50,17 +55,18 @@ class Test {
 			.attr("transform", "translate(" + w / 2 + "," + h / 2 + ")");
 		
 		var arcs = svg.selectAll("path")
-			.data(callable("donut")(data)).enter()
+			.data(getDynamic("donut")(data)).enter()
 			.append("svg:path")
-			.attr("fill", function(d, i) { return callable("color")(i); })
+			.attr("fill", function(d, i) { return getDynamic("color")(i); })
 			.attr("d", arc);
 		
-		D3.select(Lib.window).on("click", function() {
+		D3.select(Lib.document).on("click", function(datum, index) {
 			data = D3.range(5).map(randomIrwinHall(2));
-			arcs.data(callable("donut")(data)); // update the data
+			arcs.data(getDynamic("donut")(data)); // update the data
 			arcs.attr("d", arc); // redraw the arcs
 		});
 	}
+	
 	
 	private function histogram(){
 		
@@ -73,14 +79,14 @@ class Test {
 			width = 960 - margin.left - margin.right,
 			height = 500 - margin.top - margin.bottom;
 
-		var x:Dynamic = D3.scale.linear()
+		var x:Linear = D3.scale.linear()
 			.domain([0, 1])
 			.range([0, width]);
-
+		
 		// Generate a histogram using twenty uniformly-spaced bins.
 		var data:Histogram = D3.layout.histogram().bins(x.ticks(20))(values);
 		
-		var y:Dynamic = D3.scale.linear()
+		var y = D3.scale.linear()
 			.domain([0, D3.max(data, function(d) { return d.y; })])
 			.range([height, 0]);
 		
@@ -96,17 +102,17 @@ class Test {
 			.data(data)
 			.enter().append("g")
 			.attr("class", "bar")
-			.attr("transform", function(d) { return "translate(" + x(d.x) + "," + y(d.y) + ")"; });
+			.attr("transform", function(d) { return "translate(" + getDynamic("x")(d.x) + "," + getDynamic("y")(d.y) + ")"; });
 
 		bar.append("rect")
 			.attr("x", 1)
-			.attr("width", x(data[0].dx) - 1)
-			.attr("height", function(d) { return height - y(d.y); });
+			.attr("width", getDynamic("x")(data[0].dx) - 1)
+			.attr("height", function(d) { return height - getDynamic("y")(d.y); });
 
 		bar.append("text")
 			.attr("dy", ".75em")
 			.attr("y", 6)
-			.attr("x", x(data[0].dx) / 2)
+			.attr("x", getDynamic("x")(data[0].dx) / 2)
 			.attr("text-anchor", "middle")
 			.text(function(d) { return formatCount(d.y); });
 
@@ -116,6 +122,11 @@ class Test {
 			.call(xAxis);
     }
 	
+	
+	/**
+	 * 
+	 * @param	m
+	 */
 	private static function randomIrwinHall(m:Int):Void->Float {
 	  return function() {
 		var s = 0.0;
@@ -124,8 +135,14 @@ class Test {
 	  };
 	}
 	
-	/** get a dynamic reference to an object (class) so you can call it as a function in js) */
-	private static inline function callable(name:String):Dynamic {
+	
+	/** 
+	 * Get a dynamic reference to a typed object so you can call it as a function in js) 
+	 * Not great, but you can't call a class like a function in JS...
+	 * Saves having to create a separate var that_is:Dynamic;
+	 * The var 'name' gets inlined in the compiled output when you use this...
+	 */
+	private static inline function getDynamic(name:String):Dynamic {
 		return untyped __js__(name);
 	}
 }

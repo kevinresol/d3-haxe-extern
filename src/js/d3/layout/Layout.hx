@@ -1,5 +1,4 @@
 package js.d3.layout;
-import js.d3.selection.BaseSelection;
 import js.Dom;
 
 /**
