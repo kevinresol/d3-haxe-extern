@@ -9,22 +9,30 @@ import js.d3.time.Format;
  
 @:native("d3.svg")
 extern class SVG {
-	public function line():Dynamic->?Int->Line;
 	
-	public function area():Dynamic->?Int->Area;
+	@:overload(function():Dynamic->?Int->Line{})
+	public function line():Line;
+	
+	@:overload(function():Dynamic->?Int->Area{})
+	public function area():Area;
 	
 	@:overload(function():Dynamic->?Int->Arc{})
 	public function arc():Arc;
 	
-	public function symbol():Dynamic->?Int->Symbol;
+	@:overload(function():Dynamic->?Int->Symbol{})
+	public function symbol():Symbol;
 	
-	public function chord():Dynamic->?Int->Chord;
+	@:overload(function():Dynamic->?Int->Chord{})
+	public function chord():Chord;	
 	
-	public function diagonal():Dynamic->?Int->Diagonal;
+	@:overload(function():Dynamic->?Int->Diagonal{})
+	public function diagonal():Diagonal;
 
+	@:overload(function():Dynamic->?Int->Axis{})
 	public function axis():Axis;
 	
-	public function brush():Dynamic->?Int->Brush;
+	@:overload(function():Dynamic->?Int->Brush{})
+	public function brush():Brush;
 }
 
 extern class Line { 
@@ -153,6 +161,8 @@ extern class Axis {
 	
 	@:overload(function(format:Format):Axis{})
 	public function tickFormat():Format;
+	
+	public function orient(value:String):Axis;
 }
 	
 extern class Brush {
