@@ -13,17 +13,19 @@ import js.d3.selection.Selection;
 import js.d3.svg.SVG;
 import js.d3.time.Time;
 import js.d3.transition.Transition;
-import js.Dom;
+import js.html.Element;
+import js.html.Event;
+
 
 @:native("d3")
 extern class D3
 {
    
 	/*https://github.com/mbostock/d3/wiki/Selections*/
-	@:overload(function(selector:HtmlDom):Selection{})
+	@:overload(function(selector:Element):Selection{})
     public static function select(selector:String):Selection;
 	
-    @:overload(function(selector:Array<HtmlDom>):Selection{})
+    @:overload(function(selector:Array<Element>):Selection{})
     public static function selectAll(selector:String):Selection;
 
 	/*Returns the root selection, equivalent to d3.select(document.documentElement)*/
@@ -42,7 +44,7 @@ extern class D3
 	 * The container may be an HTML or SVG container element, such as an svg:g or svg:svg. 
 	 * The coordinates are returned as a two-element array [x, y].
 	 */
-    public static function mouse(container:HtmlDom):Array<Int>;
+    public static function mouse(container:Element):Array<Int>;
 	
 	
 	/**
@@ -50,7 +52,7 @@ extern class D3
 	 * The container may be an HTML or SVG container element, such as an svg:g or svg:svg. 
 	 * The coordinates are returned as an array of two-element arrays [ [x1, y1], [x2, y2], … ].
 	 */
-    public static function touches(container:HtmlDom):Array<Array<Int>>;
+    public static function touches(container:Element):Array<Array<Int>>;
 	
 	
     public static var scale		:Scale;

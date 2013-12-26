@@ -6,7 +6,6 @@ import js.d3.selection.Selection;
 import js.d3.layout.Layout;
 
 import js.Lib;
-import js.Dom;
 
 using js.HTML5Array;
 
@@ -60,7 +59,7 @@ class Test {
 			.attr("fill", function(d, i) { return getDynamic("color")(i); })
 			.attr("d", arc);
 		
-		D3.select(Lib.document).on("click", function(datum, index) {
+		D3.select(js.Browser.document.body).on("click", function(datum, index) {
 			data = D3.range(5).map(randomIrwinHall(2));
 			arcs.data(getDynamic("donut")(data)); // update the data
 			arcs.attr("d", arc); // redraw the arcs
