@@ -52,7 +52,7 @@ Test.prototype = {
 		var arcs = svg.selectAll("path").data(donut(data)).enter().append("svg:path").attr("fill",function(d,i1) {
 			return color(i1);
 		}).attr("d",arc);
-		d3.select(js.Lib.document).on("click",function(datum,index) {
+		d3.select(js.Browser).on("click",function(datum,index) {
 			data = d3.range(5).map(Test.randomIrwinHall(2));
 			arcs.data(donut(data));
 			arcs.attr("d",arc);
@@ -275,7 +275,7 @@ $hxClasses["js.Lib"] = js.Lib;
 js.Lib.__name__ = ["js","Lib"];
 js.Lib.isIE = null;
 js.Lib.isOpera = null;
-js.Lib.document = null;
+js.Browser = null;
 js.Lib.window = null;
 js.Lib.prototype = {
 	__class__: js.Lib
@@ -355,7 +355,7 @@ js.Boot.__init();
 	var Void = $hxClasses["Void"] = { __ename__ : ["Void"]};
 }
 {
-	if(typeof document != "undefined") js.Lib.document = document;
+	if(typeof document != "undefined") js.Browser = document;
 	if(typeof window != "undefined") {
 		js.Lib.window = window;
 		js.Lib.window.onerror = function(msg,url,line) {

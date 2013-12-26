@@ -1,16 +1,15 @@
 package js.d3.selection;
 
-import js.Dom;
-
 import js.d3.D3;
 import js.d3.transition.Transition;
+import js.html.Element;
 
 
 /**
  * @see https://github.com/mbostock/d3/wiki/Selections
  * @author Mike Almond - https://github.com/mikedotalmond
  */
-extern class Selection implements ArrayAccess<HtmlDom> {
+extern class Selection implements ArrayAccess<Element> {
 	
 	// --------------------------
 	// Content
@@ -257,5 +256,5 @@ extern class Selection implements ArrayAccess<HtmlDom> {
 	/**
 	 * @return the first non-null element in the current selection. If the selection is empty, returns null.
 	*/
-	public function node():HtmlDom;
+	public function node():Element;
 }

@@ -1,5 +1,4 @@
 package js.d3.layout;
-import js.Dom;
 
 /**
  * ...
