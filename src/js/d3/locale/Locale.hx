@@ -4,8 +4,8 @@ package js.d3.locale;
 typedef ValueParser = String->Float;
 typedef NumberFormat = String->ValueParser;
 
-
+@:native("d3.locale")
 typedef Locale = {
-	numberFormat: NumberFormat;
-	timeFormat: TimeFormat;
+	var numberFormat : NumberFormat;
+	var timeFormat : TimeFormat;
 }
