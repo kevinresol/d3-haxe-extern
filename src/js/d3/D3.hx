@@ -8,6 +8,7 @@ import js.d3.color.HCL;
 import js.d3.color.HSL;
 import js.d3.color.LAB;
 import js.d3.color.RGB;
+import js.d3.dsv.Dsv;
 import js.d3.geo.Geography;
 import js.d3.geom.Geometry;
 import js.d3.layout.Layout;
@@ -163,9 +164,6 @@ extern class D3
 	@:overload(function (url:String, ?cb:XHRCallback):XHR{})
 	public static function xhr(url:String, mime:String, ?cb:XHRCallback):XHR;
 
-	public static function csv(url:String, ?cb:Dynamic->Array<Array<String>>->Dynamic):XHR;
-	public static function csv(url:String, ?cb:Dynamic->Array<Array<String>>->Dynamic):XHR;
-
 
 	/* String Formatting */
 	@:overload(function(specifier:Dynamic):Dynamic{})
@@ -174,8 +172,14 @@ extern class D3
 	public static function requote(s:String):String;
 	public static function round(x:Float, ?n:Int):Float;
 
-	/* Colors */
 
+	/* CSV/TSV/DSV Formatting */
+	public static function csv<T>(url:String, ?accessor:DsvRowAccessor<T>, ?callback:DsvCallback<T>):XHR;
+	public static function tsv<T>(url:String, ?accessor:DsvRowAccessor<T>, ?callback:DsvCallback<T>):XHR;
+	public static function dsv<T>(delimiter:String, mimeType:String):Dsv;
+
+
+	/* Colors */
 	@:overload(function(color:String):RGB{})
 	public static function rgb(r:Int, g:Int, b:Int):RGB;
 
