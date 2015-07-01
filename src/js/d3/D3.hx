@@ -1,5 +1,6 @@
 package js.d3;
 
+import js.d3.arrays.Map;
 import js.d3.arrays.Nest;
 import js.d3.behavior.Behaviors;
 import js.d3.color.HCL;
@@ -125,8 +126,11 @@ extern class D3
 
 	/* Obj Extensions */
 	public static function keys(obj:Dynamic):Array<String>;
-	public static function values(obj:Dynamic):Array<String>;
+	public static function values(obj:Dynamic):Array<Dynamic>;
 	public static function entries(obj:Dynamic):Array<{key:String, value:Dynamic}>;
+
+	/* Maps */
+	public static function map<T>(obj:T, ?f:T->String):Map<T>;
 
 	/* Array/Op Extensions */
 	public static function split<T>(arr:Array<T>, fn:T->Bool) : Array<Array<T>>;
