@@ -135,16 +135,17 @@ extern class D3
 	public static function set<T>(arr:Array<T>):Set<T>;
 
 	/* Array/Op Extensions */
-	public static function split<T>(arr:Array<T>, fn:T->Bool) : Array<Array<T>>;
 	public static function merge<T>(arr:Array<Array<T>>):Array<T>;
 
 	@:overload(function(?start:Float, ?stop:Float, ?step:Float):Array<Float>{})
 	public static function range(?start:Float, ?stop:Float, ?step:Float):Dynamic;
 
 	public static function permute<T>(arr:Array<T>, indexes:Array<Int>):Array<T>;
-	public static function zip(arr1:Array<Dynamic>,arr2:Array<Dynamic>, arr3:Array<Dynamic>, arr3:Array<Dynamic>, arr4:Array<Dynamic>, arr5:Array<Dynamic>, arr6:Array<Dynamic>):Array<Array<Dynamic>>;
+	public static function zip<T>(arrays:Rest<Array<T>>):Array<Array<T>>;
+	public static function transpose<T>(matrix:Array<Array<T>):Array<Array<T>;
+	public static function pairs<T>(array:Array<T>):Array<Array<T>>;
 
-	/* Nests... TODO: does this work? */
+	/* Nests */
 	public static function nest():Nest<Dynamic,Dynamic>;
 
 
