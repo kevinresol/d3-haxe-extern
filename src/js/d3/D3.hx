@@ -73,17 +73,23 @@ extern class D3
 	public static function ease(name:String, Rest<Dynamic>):Float->Float;
 
 
-	@:overload(function(a:Dynamic, b:Dynamic):Float->Float{})
-	public static function interpolate(t:Dynamic):Float->Float;
+	@:overload(function(a:Array<Dynamic>, b:Array<Dynamic>):Array<Dynamic>->Array<Dynamic>{})
+	@:overload(function(a:String, b:String):Float->Float{})
+	@:overload(function(a:Float, b:Float):Float->Float{})
+	@:overload(function(a:Dynamic, b:Dynamic):Dynamic->Dynamic{})
+	public static function interpolate(a:Dynamic, b:Dynamic):Float->String;
 
-	public static function interpolateNumber(a:Float, b:Float):Float->Float;
-	public static function interpolateRound(a:Float, b:Float):Float->Float;
-	public static function interpolateString(a:String, b:String):Float->Float;
-	public static function interpolateRgb(a:Dynamic, b:Dynamic):Float->Float;
-	public static function interpolateHsl(a:Dynamic, b:Dynamic):Float->Float;
-	public static function interpolateArray(a:Array<Dynamic>, b:Array<Dynamic>):Array<Dynamic>->Array<Dynamic>;
-	public static function interpolateObject(a:Dynamic, b:Dynamic):Dynamic->Dynamic;
-	public static function interpolateTransform(a:Transform, b:Transform):Transform->Transform;
+	public static function interpolateNumber(a:Float, b:Float):Float->String;
+	public static function interpolateRound(a:Float, b:Float):Float->String;
+	public static function interpolateString(a:String, b:String):Float->String;
+	public static function interpolateRgb(a:Dynamic, b:Dynamic):Float->String;
+	public static function interpolateHsl(a:Dynamic, b:Dynamic):Float->String;
+	public static function interpolateLab(a:Dynamic, b:Dynamic):Float->String;
+	public static function interpolateHcl(a:Dynamic, b:Dynamic):Float->String;
+	public static function interpolateArray(a:Array<Dynamic>, b:Array<Dynamic>):Float->Array<String>;
+	public static function interpolateObject(a:Dynamic, b:Dynamic):Float->Dynamic;
+	public static function interpolateTransform(a:Transform, b:Transform):Float->String;
+	public static function interpolateZoom(p0:Array<Int>, p1:Array<Int>):Float->Array<Float>;
 
 	public static var interpolators:Array<Dynamic>;
 
