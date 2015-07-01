@@ -6,9 +6,8 @@ package js.d3.color;
  */
 
 @:native("d3.hsl")
-extern class HSL {
+extern class HSL extends Color {
 	public static function brighter(?k:Float):RGB;
 	public static function darker(?k:Float):RGB;
 	public static function rgb():RGB;
-	public static function toString():String;
 }
