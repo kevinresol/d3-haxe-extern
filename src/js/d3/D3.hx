@@ -1,5 +1,6 @@
 package js.d3;
 
+import js.d3.arrays.Nest;
 import js.d3.behavior.Behaviors;
 import js.d3.color.HCL;
 import js.d3.color.HSL;
@@ -182,16 +183,6 @@ extern class D3
 	public static function functor(value:Dynamic):Dynamic;
 	public static function rebind(target:Dynamic, source:Dynamic, names:String):Dynamic;
 	public static function dispatch():Dynamic;
-}
-
-
-extern class Nest<A,B>{
-	public function key<C>(fn:B->C):Nest<C,B>;
-	public function sortKeys(fn:A->A->Int) : Nest<A,B>;
-	public function sortValues(fn:B->B->Int) : Nest<A,B>;
-	public function rollup<C>(fn:B->C):Nest<A,C>;
-	public function map<T>(arr:Array<T>):Nest<A,T>;
-	public function entries<T>(arr:Array<T>):Array<{key:A, values:Array<Dynamic>}>;
 }
 
 
