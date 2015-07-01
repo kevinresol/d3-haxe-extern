@@ -9,9 +9,11 @@ import js.d3.color.HSL;
 import js.d3.color.LAB;
 import js.d3.color.RGB;
 import js.d3.dsv.Dsv;
+import js.d3.format.Format;
 import js.d3.geo.Geography;
 import js.d3.geom.Geometry;
 import js.d3.layout.Layout;
+import js.d3.locale.Locale;
 import js.d3.math.Random;
 import js.d3.math.Transform;
 import js.d3.scale.Scale;
@@ -165,12 +167,13 @@ extern class D3
 	public static function xhr(url:String, mime:String, ?cb:XHRCallback):XHR;
 
 
-	/* String Formatting */
-	@:overload(function(specifier:Dynamic):Dynamic{})
-	public static function format(specifier:String):Dynamic;
-
-	public static function requote(s:String):String;
+	/* Number Formatting */
+	public static function format(specifier:String):NumberFormat;
+	public static function formatPrefix(value:Float, ?precission:Int):FormatPrefix;
 	public static function round(x:Float, ?n:Int):Float;
+
+	/* String Formatting */
+	public static function requote(s:String):String;
 
 
 	/* CSV/TSV/DSV Formatting */

@@ -1,7 +1,6 @@
 package js.d3.time;
-
-import js.d3.time.Format;
-import js.d3.time.Scale;
+ import js.d3.locale.TimeFormat;
+ import js.d3.time.Scale;
 
 /**
  * ...
@@ -11,5 +10,5 @@ import js.d3.time.Scale;
 @:native("d3.time")
 extern class Time {
 	public var scale:Scale;
-	public var format:Format;
+	public var format:TimeFormat;
 }

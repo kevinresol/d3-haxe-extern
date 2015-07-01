@@ -1,4 +1,4 @@
-package js.d3.time;
+package js.d3.locale;
 
 /**
  * ...
@@ -6,15 +6,15 @@ package js.d3.time;
  */
 
  @:native("d3.time.format")
-extern class Format {
-	
+extern class TimeFormat {
+
 	public function format(?specifier:String):Format;
-	
+
 	@:overload(function(date:Date):Format{})
 	public function utc(template:String):Format;
-	
+
 	@:overload(function(date:Date):Dynamic{})
 	public function iso(template:String):Format;
-	
-	public function parse(data:String):Date;	
+
+	public function parse(data:String):Date;
 }
