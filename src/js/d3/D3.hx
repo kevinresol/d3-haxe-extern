@@ -16,6 +16,7 @@ import js.d3.transition.Transition;
 import js.html.Element;
 import js.html.Event;
 import js.html.TouchList;
+import haxe.extern.EitherType;
 import haxe.extern.Rest;
 
 
@@ -94,10 +95,9 @@ extern class D3
 	public static var interpolators:Array<Dynamic>;
 
 	public static function transform(name:String):Transform;
-	public static function transition(?selection:Selection):Transition;
+	public static function transition(?selection:Selection, ?name:String):Transition;
 
-	@:overload(function(fn:Dynamic->Bool):Void{})
-	public static function timer(fn:Void->Bool):Void;
+	public static function timer(fn:EitherType<Void->Bool, Dynamic->Bool>, ?delay:Int, ?time:Int):Void;
 
 	/* sorting helpers */
 	public static function ascending<T>(a:T, b:T):Int;
