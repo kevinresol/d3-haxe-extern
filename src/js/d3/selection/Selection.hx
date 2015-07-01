@@ -1,8 +1,9 @@
 package js.d3.selection;
-
-import js.d3.D3;
-import js.d3.transition.Transition;
-import js.html.Element;
+ import js.d3.D3;
+ import js.d3.transition.Transition;
+ import js.html.Element;
+ import haxe.extern.EitherType;
+ import haxe.extern.Rest;
 
 
 /**
@@ -49,18 +50,24 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	?priority
 	 * @return
 	 */
+	@:overload(function(name:Dynamic):Selection{})
+	@:overload(function(name:String):Dynamic{})
+	@:overload(function(name:String, value:Null<Dynamic>):Selection{})
 	@:overload(function(name:String, value:Void->String, ?priority:Priority):Selection{})
 	@:overload(function(name:String, value:Dynamic->String, ?priority:Priority):Selection{})
 	@:overload(function(name:String, value:Dynamic->Int->String, ?priority:Priority):Selection{})
+	@:overload(function(name:String, value:Null<Dynamic>):Selection{})
 	public function style(name:String, value:String, ?priority:Priority):Selection;
 
 
-	 /**
-	*
-	* @param	name
-	* @param	value
-	* @return
-	*/
+	/**
+	 *
+	 * @param	name
+	 * @param	value
+	 * @return
+	 */
+	@:overload(function(name:String):Dynamic{})
+	@:overload(function(name:String, value:Null<String>):Selection{})
 	@:overload(function(name:String, value:String):Selection{})
 	@:overload(function(name:String, value:Void->String):Selection{})
 	@:overload(function(name:String, value:Dynamic->String):Selection{})
@@ -96,7 +103,7 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	name
 	 * @return
 	 */
-	public function append(name:String) : Selection;
+	public function append(name:EitherType<String, Void->Element>) : Selection;
 
 	/**
 	 *
@@ -104,7 +111,7 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	before
 	 * @return
 	 */
-	public function insert(name:String, before:String) : Selection;
+	public function insert(name:EitherType<String, Void->Element>, before:EitherType<String, Void->String->Element>) : Selection;
 
 	/**
 	 *
@@ -125,16 +132,17 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	?key
 	 * @return
 	 */
-	@:overload(function(values:Dynamic,?key:Dynamic):Selection{})
-	@:overload(function(values:Array<Dynamic>,?key:Dynamic->Int->Dynamic):Selection{})
-	public function data(values:Array<Dynamic>,?key:Dynamic->Dynamic):Selection;
+	@:overload(function():Dynamic{})
+	@:overload(function(value:Dynamic,?key:Dynamic):Selection{})
+	public function data(value:EitherType<Array<Dynamic>, Dynamic->Int->Array<Dynamic>>,
+						 ?key:EitherType<Dynamic->Int->Dynamic, Dynamic->Dynamic>):Selection;
 
 
 	/**
 	 *
 	 * @return
 	 */
-	public function enter():Selection;
+	public function enter(?selection:Selection):Selection;
 
 
 	/**
@@ -166,7 +174,7 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	comparator
 	 * @return
 	 */
-	public function sort(comparator:Dynamic->Dynamic->Int):Selection;
+	public function sort(?comparator:Dynamic->Dynamic->Int):Selection;
 
 
 	/**
@@ -174,6 +182,9 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @return
 	 */
 	public function order():Selection;
+
+
+	public function size ():Int;
 
 
 
@@ -189,13 +200,15 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	?capture
 	 * @return
 	 */
+	@:overload(function(type:Dynamic, ?capture:Bool):Selection {})
 	public function on(type:String, ?listener:Dynamic->Int->Void, ?capture:Bool):Selection;
 
 
-	/** Starts a transition for the current selection.
-	* Transitions behave much like selections, except operators animate smoothly over time rather than applying instantaneously.
-	*/
-	public function transition():Transition;
+	/**
+	 * Starts a transition for the current selection.
+	 * Transitions behave much like selections, except operators animate smoothly over time rather than applying instantaneously.
+	 */
+	public function transition(name:Null<String>):Transition;
 
 
 
@@ -232,7 +245,9 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	fn
 	 * @return
 	 */
-	public function each(fn:Dynamic->Int->Void):Selection;
+	public function each(fn:EitherType<Dynamic->Void>,
+							EitherType<Dynamic->Int->Void,
+									   Dynamic->Int->Int->Void>>):Selection;
 
 
 	/**
@@ -243,8 +258,7 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	?arg3
 	 * @return
 	 */
-	@:overload(function(fn:Dynamic, ?arg1:Dynamic, ?arg2:Dynamic, ?arg3:Dynamic):Selection{})
-	public function call(fn:Dynamic->Dynamic,?arg1:Dynamic, ?arg2:Dynamic, ?arg3:Dynamic):Selection;
+	public function call(fn:Dynamic, r:Rest<Dynamic>):Selection;
 
 
 	/**
@@ -256,5 +270,5 @@ extern class Selection implements ArrayAccess<Element> {
 	/**
 	 * @return the first non-null element in the current selection. If the selection is empty, returns null.
 	*/
-	public function node():Element;
+	public function node():Null<Element>;
 }
