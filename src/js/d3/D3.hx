@@ -106,20 +106,20 @@ extern class D3
 	public static function descending<T>(a:T, b:T):Int;
 
 	/* Array/Math Extensions*/
-	public static function min(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Dynamic;
-	public static function max(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Dynamic;
+	public static function min<T>(arr:Array<T>,?accessor:T->T):T;
+	public static function max<T>(arr:Array<T>,?accessor:T->T):T;
 
-	public static function extend(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Array<Dynamic>;
+	public static function extend<T>(arr:Array<T>,?accessor:T->T):Array<T>;
 	public static function sum(arr:Array<Float>,?accessor:Float->Float):Float;
 	public static function mean(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
 	public static function median(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
 	public static function quantile(arr:Array<Float>,p:Float):Float;
 	public static function variance(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
-	public static function deviation(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Float;
-	public static function bisectLeft(arr:Array<Dynamic>,x:Dynamic, ?lo:Dynamic, ?hi:Dynamic):Int;
-	public static function bisect(arr:Array<Dynamic>,x:Dynamic, ?lo:Dynamic, ?hi:Dynamic):Int;
-	public static function bisectRight(arr:Array<Dynamic>,x:Dynamic, ?lo:Dynamic, ?hi:Dynamic):Int;
-	public static function bisector(EitherType<Array<Dynamic>, Dynamic->Dynamic->Dynamic):Dynamic;
+	public static function deviation(arr:Array<Float>,?accessor:Float->Float):Float;
+	public static function bisectLeft<T>(arr:Array<T>,x:T, ?lo:Int, ?hi:Int):Int;
+	public static function bisect<T>(arr:Array<T>,x:T, ?lo:Int, ?hi:Int):Int;
+	public static function bisectRight<T>(arr:Array<T>,x:T, ?lo:Int, ?hi:Int):Int;
+	public static function bisector<T>(EitherType<Array<T>, T->T->T):Int;
 	public static function shuffle(Array<Dynamic>, ?i0:Int, ?i1:Int):Array<Dynamic>;
 
 	/* Obj Extensions */
