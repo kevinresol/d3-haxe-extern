@@ -16,6 +16,7 @@ import js.d3.transition.Transition;
 import js.html.Element;
 import js.html.Event;
 import js.html.TouchList;
+import haxe.extern.Rest;
 
 
 @:native("d3")
@@ -69,8 +70,7 @@ extern class D3
 	public static var behavior	:Behaviors;
 
 
-	@:overload(function(type:String, ?a:Dynamic,?b:Dynamic,?c:Dynamic,?d:Dynamic):Float->Float{})
-	public static function ease(type:String):Float->Float;
+	public static function ease(name:String, Rest<Dynamic>):Float->Float;
 
 
 	@:overload(function(a:Dynamic, b:Dynamic):Float->Float{})
