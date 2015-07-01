@@ -7,4 +7,7 @@ package js.d3.math;
 @:native("d3.random")
 extern class Random {
 	public function normal(?mean:Float, ?deviation:Float):Void->Float;
+  public function logNormal() : Void->Float;
+  public function bates (m:Int) : Void->Float;
+  public function irwinHall (m:Int) : Void->Float;
 }
