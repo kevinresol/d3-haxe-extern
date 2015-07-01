@@ -18,6 +18,7 @@ import js.d3.selection.Selection;
 import js.d3.svg.SVG;
 import js.d3.time.Time;
 import js.d3.transition.Transition;
+import js.d3.xhr.XHR;
 import js.html.Element;
 import js.html.Event;
 import js.html.TouchList;
@@ -150,19 +151,20 @@ extern class D3
 
 
 	/* Loading External Resources */
-	public static function json(url:String, cb:Dynamic->Void):Void;
-	public static function html(url:String, cb:Dynamic->Void):Void;
+	public static function json(url:String, ?cb:XHRCallback):XHR;
+	public static function html(url:String, ?cb:XHRCallback):XHR;
 
-	@:overload(function (url:String, cb:Dynamic->Void):Void{})
-	public static function xml(url:String, mime:String, cb:Dynamic->Void):Void;
+	@:overload(function (url:String, ?cb:XHRCallback):XHR{})
+	public static function xml(url:String, mime:String, ?cb:XHRCallback):XHR;
 
-	@:overload(function (url:String, cb:Dynamic->Void):Void{})
-	public static function text(url:String, mime:String, cb:Dynamic->Void):Void;
+	@:overload(function (url:String, ?cb:XHRCallback):XHR{})
+	public static function text(url:String, mime:String, ?cb:XHRCallback):XHR;
 
-	@:overload(function (url:String, cb:Dynamic->Void):Void{})
-	public static function xhr(url:String, mime:String, cb:Dynamic->Void):Void;
+	@:overload(function (url:String, ?cb:XHRCallback):XHR{})
+	public static function xhr(url:String, mime:String, ?cb:XHRCallback):XHR;
 
-	public static function csv(url:String, cb:Array<Dynamic<String>>->Dynamic):Csv;
+	public static function csv(url:String, ?cb:Dynamic->Array<Array<String>>->Dynamic):XHR;
+	public static function csv(url:String, ?cb:Dynamic->Array<Array<String>>->Dynamic):XHR;
 
 
 	/* String Formatting */

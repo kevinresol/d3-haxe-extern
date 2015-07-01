@@ -5,7 +5,7 @@ package js.d3.arrays;
  * ...
  * @author Ruben Weijers
  */
-@:native("d3.Set")
+@:native("d3.set")
 extern class Set<T> {
 	public function has(key:T):Bool;
 	public function add(key:T):T;

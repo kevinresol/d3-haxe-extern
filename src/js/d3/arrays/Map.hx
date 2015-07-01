@@ -5,7 +5,7 @@ package js.d3.arrays;
  * ...
  * @author Ruben Weijers
  */
-@:native("d3.Map")
+@:native("d3.map")
 extern class Map<T> {
 	public function has(key:String):Bool;
 	public function get(key:String):T;
