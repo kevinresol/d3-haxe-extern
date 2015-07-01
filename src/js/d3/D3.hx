@@ -9,6 +9,7 @@ import js.d3.color.HSL;
 import js.d3.color.LAB;
 import js.d3.color.RGB;
 import js.d3.dsv.Dsv;
+import js.d3.event.Dispatch;
 import js.d3.format.Format;
 import js.d3.geo.Geography;
 import js.d3.geom.Geometry;
@@ -198,7 +199,7 @@ extern class D3
 	/* internals */
 	public static function functor(value:Dynamic):Dynamic;
 	public static function rebind(target:Dynamic, source:Dynamic, names:String):Dynamic;
-	public static function dispatch():Dynamic;
+	public static function dispatch(types:Rest<String>):Dispatch;
 }
 
 
