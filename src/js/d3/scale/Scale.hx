@@ -3,20 +3,22 @@ package js.d3.scale;
 /**
  * ...
  * @author Mike Almond - https://github.com/mikedotalmond
+ * @author Ruben Weijers
  */
 
- 
+
 @:native("d3.scale")
 extern class Scale {
 	public function linear():Linear;
 	public function identity():Identity;
 	public function sqrt():Power;
-	public function power():Power;
+	public function pow():Power;
 	public function log():Log;
 	public function quantize():Quantize;
 	public function quantile():Quantile;
+	public function threshold():Threshold;
 	public function ordinal():Ordinal;
-	
+
 	public function category10():Ordinal;
 	public function category20():Ordinal;
 	public function category20b():Ordinal;
@@ -30,9 +32,9 @@ extern class Linear {
 	public function rangeRound(values:Array<Dynamic>):Linear;
 	public function interpolate(?factory:Array<Dynamic>):Linear;
 	public function clamp(?boolean:Array<Bool>):Linear;
-	public function nice():Linear;
-	public function ticks(count:Int):Int;
-	public function tickFormat(count:Int):Dynamic;
+	public function nice(?m:Int):Linear;
+	public function ticks(?count:Int):Int;
+	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Linear;
 }
 
@@ -40,8 +42,8 @@ extern class Identity {
 	public function invert(x:Dynamic):Dynamic;
 	public function domain(?numbers:Array<Float>):Identity;
 	public function range(?values:Array<Dynamic>):Identity;
-	public function ticks(count:Int):Int;
-	public function tickFormat(count:Int):Dynamic;
+	public function ticks(?count:Int):Int;
+	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Identity;
 }
 
@@ -53,9 +55,9 @@ extern class Power {
 	public function exponent(?k:Float):Float;
 	public function interpolate(?interpolator:Array<Dynamic>):Dynamic;
 	public function clamp(?boolean:Array<Bool>):Dynamic;
-	public function nice():Power;
-	public function ticks(count:Int):Int;
-	public function tickFormat(count:Int):Dynamic;
+	public function nice(?m:Int):Power;
+	public function ticks(?count:Int):Int;
+	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Power;
 }
 
@@ -64,37 +66,45 @@ extern class Log {
 	public function domain(?numbers:Array<Float>):Log;
 	public function range(?values:Array<Dynamic>):Log;
 	public function rangeRound(values:Array<Dynamic>):Log;
+	public function base(?base:Int):Int;
 	public function interpolate(?interpolator:Array<Dynamic>):Dynamic;
 	public function clamp(?boolean:Array<Bool>):Dynamic;
 	public function nice():Log;
-	public function ticks(count:Int):Int;
-	public function tickFormat(count:Int, ?format:Dynamic):Dynamic;
+	public function ticks():Int;
+	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Log;
 }
 
 extern class Quantize {
+	public function invertExtend(y:Dynamic):Dynamic;
 	public function domain(?numbers:Array<Float>):Quantize;
 	public function range(?values:Array<Dynamic>):Quantize;
 	public function copy():Quantize;
 }
 
 extern class Quantile {
+	public function invertExtend(y:Dynamic):Dynamic;
 	public function domain(?numbers:Array<Float>):Quantile;
 	public function range(?values:Array<Dynamic>):Quantile;
 	public function quantiles():Array<Dynamic>;
 	public function copy():Quantile;
 }
 
+extern class Threshold {
+	public function invertExtend(y:Dynamic):Dynamic;
+	public function domain(?numbers:Array<Float>):Threshold;
+	public function range(?values:Array<Dynamic>):Threshold;
+	public function copy():Threshold;
+}
+
 extern class Ordinal {
-	
 	public function domain(?numbers:Array<Float>):Ordinal;
 	public function range(?values:Array<Dynamic>):Ordinal;
-	
 	public function rangePoints(interval:Array<Float>, ?padding:Float):Ordinal;
-	public function rangeBands(interval:Array<Float>, ?padding:Float):Ordinal;
-	public function rangeRoundBands(interval:Array<Float>, ?padding:Float):Ordinal;
+	public function rangeRoundPoints(interval:Array<Float>, ?padding:Float):Ordinal;
+	public function rangeBands(interval:Array<Float>, ?padding:Float, ?outerPadding:Float):Ordinal;
+	public function rangeRoundBands(interval:Array<Float>, ?padding:Float, ?outerPadding:Float):Ordinal;
 	public function rangeBand():Float;
 	public function rangeExtent():Array<Float>;
-	
 	public function copy():Ordinal;
 }
