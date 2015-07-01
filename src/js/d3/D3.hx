@@ -1,7 +1,9 @@
 package js.d3;
 
 import js.d3.behavior.Behaviors;
+import js.d3.color.HCL;
 import js.d3.color.HSL;
+import js.d3.color.LAB;
 import js.d3.color.RGB;
 import js.d3.geo.Geography;
 import js.d3.geom.Geometry;
@@ -164,6 +166,12 @@ extern class D3
 
 	@:overload(function(color:String):HSL{})
 	public static function hsl(h:Float, s:Float, l:Float):HSL;
+
+	@:overload(function(color:String):HCL{})
+	public static function hcl(h:Float, c:Float, l:Float):HCL;
+
+	@:overload(function(color:String):LAB{})
+	public static function lab(l:Float, a:Float, b:Float):LAB;
 
 	/* internals */
 	public static function functor(value:Dynamic):Dynamic;
