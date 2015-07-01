@@ -107,16 +107,21 @@ extern class D3
 
 	/* Array/Math Extensions*/
 	public static function min(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Dynamic;
-
-	@:overload(function(arr:Dynamic,?accessor:Dynamic->Dynamic):Dynamic{})
 	public static function max(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Dynamic;
 
+	public static function extend(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Array<Dynamic>;
+	public static function sum(arr:Array<Float>,?accessor:Float->Float):Float;
+	public static function mean(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
+	public static function median(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
 	public static function quantile(arr:Array<Float>,p:Float):Float;
+	public static function variance(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
+	public static function deviation(arr:Array<Dynamic>,?accessor:Dynamic->Dynamic):Float;
 	public static function bisectLeft(arr:Array<Dynamic>,x:Dynamic, ?lo:Dynamic, ?hi:Dynamic):Int;
 	public static function bisect(arr:Array<Dynamic>,x:Dynamic, ?lo:Dynamic, ?hi:Dynamic):Int;
 	public static function bisectRight(arr:Array<Dynamic>,x:Dynamic, ?lo:Dynamic, ?hi:Dynamic):Int;
-	public static function first<T>(arr:Array<T>, ?comparator:T->T->Int) : T;
-	public static function last<T>(arr:Array<T>, ?comparator:T->T->Int) : T;
+	public static function bisector(EitherType<Array<Dynamic>, Dynamic->Dynamic->Dynamic):Dynamic;
+	public static function shuffle(Array<Dynamic>, ?i0:Int, ?i1:Int):Array<Dynamic>;
+
 	/* Obj Extensions */
 	public static function keys(obj:Dynamic):Array<String>;
 	public static function values(obj:Dynamic):Array<String>;
