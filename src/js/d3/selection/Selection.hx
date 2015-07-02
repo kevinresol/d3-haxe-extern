@@ -84,7 +84,7 @@ extern class Selection implements ArrayAccess<Element> {
 	@:overload(function(value:Void->String):Selection{})
 	@:overload(function(value:Dynamic->String):Selection{})
 	@:overload(function(value:Dynamic->Int->String):Selection{})
-	public function text(value:String) : Selection;
+	public function text(value:EitherType<String,Dynamic->Dynamic>) : Selection;
 
 
 	/**
@@ -245,7 +245,7 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	fn
 	 * @return
 	 */
-	public function each(fn:EitherType<Dynamic->Void>,
+	public function each(fn:EitherType<Dynamic->Void,
 							EitherType<Dynamic->Int->Void,
 									   Dynamic->Int->Int->Void>>):Selection;
 

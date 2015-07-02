@@ -81,7 +81,7 @@ extern class D3
 	public static var behavior	:Behaviors;
 
 
-	public static function ease(name:String, Rest<Dynamic>):Float->Float;
+	public static function ease(name:String, r:Rest<Dynamic>):Float->Float;
 
 
 	@:overload(function(a:Array<Dynamic>, b:Array<Dynamic>):Array<Dynamic>->Array<Dynamic>{})
@@ -127,8 +127,8 @@ extern class D3
 	public static function bisectLeft<T>(arr:Array<T>,x:T, ?lo:Int, ?hi:Int):Int;
 	public static function bisect<T>(arr:Array<T>,x:T, ?lo:Int, ?hi:Int):Int;
 	public static function bisectRight<T>(arr:Array<T>,x:T, ?lo:Int, ?hi:Int):Int;
-	public static function bisector<T>(EitherType<Array<T>, T->T->T):Int;
-	public static function shuffle(Array<Dynamic>, ?i0:Int, ?i1:Int):Array<Dynamic>;
+	public static function bisector<T>(arr:EitherType<Array<T>, T->T->T>):Int;
+	public static function shuffle(arr:Array<Dynamic>, ?i0:Int, ?i1:Int):Array<Dynamic>;
 
 	/* Obj Extensions */
 	public static function keys(obj:Dynamic):Array<String>;
@@ -147,7 +147,7 @@ extern class D3
 
 	public static function permute<T>(arr:Array<T>, indexes:Array<Int>):Array<T>;
 	public static function zip<T>(arrays:Rest<Array<T>>):Array<Array<T>>;
-	public static function transpose<T>(matrix:Array<Array<T>):Array<Array<T>;
+	public static function transpose<T>(matrix:Array<Array<T>>):Array<Array<T>>;
 	public static function pairs<T>(array:Array<T>):Array<Array<T>>;
 
 	/* Nests */
@@ -170,7 +170,7 @@ extern class D3
 
 	/* Number Formatting */
 	public static function format(specifier:String):NumberFormat;
-	public static function formatPrefix(value:Float, ?precission:Int):FormatPrefix;
+	public static function formatPrefix(value:Float, ?precission:Int):Format;
 	public static function round(x:Float, ?n:Int):Float;
 
 	/* String Formatting */

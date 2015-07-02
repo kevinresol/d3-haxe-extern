@@ -1,7 +1,7 @@
 package js.d3.format;
 
-
-typedef FormatPrefix {
-	var symbol : String;
-	var scale : Float->Float;
+@:native("d3.format")
+extern class Format {
+	public var symbol : String;
+	public function scale(v:Float):Float;
 }

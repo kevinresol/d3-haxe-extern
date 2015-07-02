@@ -1,4 +1,5 @@
 package js.d3.time;
+ import js.d3.format.Format;
 
 /**
  * ...
@@ -7,7 +8,7 @@ package js.d3.time;
 
 @:native("d3.time.scale")
 extern class Scale {
-	
+
 	public function utc():Scale;
 	public function invert(y:Array<Dynamic>):Date;
 	public function domain(?dates:Array<Date>):Date;
@@ -18,5 +19,5 @@ extern class Scale {
 	public function ticks(count:Int, ?step:Float):Array<Date>;
 	public function tickFormat(count:Int):Format;
 	public function copy():Scale;
-	
+
 }

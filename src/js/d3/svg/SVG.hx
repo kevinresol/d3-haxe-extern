@@ -1,5 +1,5 @@
 package js.d3.svg;
- import js.d3.time.Format;
+ import js.d3.format.Format;
  import js.d3.selection.Selection;
  import js.d3.transition.Transition;
  import haxe.extern.EitherType;
@@ -95,7 +95,7 @@ extern class Area {
 	@:overload(function():SvgCoordinate{})
 	public function y1(y:SvgCoordinate):Area;
 
-	@:overload(function():Svg {})
+	@:overload(function():SvgInterpolate {})
 	public function interpolate(interpolate:SvgInterpolate):Area;
 
 	@:overload(function():Float {})
@@ -122,44 +122,45 @@ extern class Area {
 	public function endAngle(angle:SvgPointArg):Line;
 }
 
+typedef SvgArcRadius = EitherType<Float,Float->Float->Float>;
+
 @:native("d3.svg.arc")
 extern class Arc {
 
-	@:overload(function():SvgPointArg{})
-	public function innerRadius(?radius:SvgPointArg):Arc;
+	@:overload(function():SvgCoordinate{})
+	public function innerRadius(?radius:SvgCoordinate):Arc;
 
-	@:overload(function():SvgPointArg{})
-	public function outerRadius(?radius:SvgPointArg):Arc;
+	@:overload(function():SvgCoordinate{})
+	public function outerRadius(?radius:SvgCoordinate):Arc;
 
-	@:overload(function():SvgPointArg{})
-	public function cornerRadius(?radius:SvgPointArg):Arc;
+	@:overload(function():SvgArcRadius{})
+	public function cornerRadius(?radius:SvgArcRadius):Arc;
 
-	@:overload(function():SvgPointArg{})
-	public function padRadius(?radius:SvgPointArg):Arc;
+	@:overload(function():SvgArcRadius{})
+	public function padRadius(?radius:SvgArcRadius):Arc;
 
-	@:overload(function():SvgPointArg{})
-	public function startAngle(angle:SvgPointArg):Arc;
+	@:overload(function():SvgCoordinate{})
+	public function startAngle(angle:SvgCoordinate):Arc;
 
-	@:overload(function():SvgPointArg{})
-	public function endAngle(angle:SvgPointArg):Arc;
+	@:overload(function():SvgCoordinate{})
+	public function endAngle(angle:SvgCoordinate):Arc;
 
-	@:overload(function():SvgPointArg{})
-	public function padAngle(angle:SvgPointArg):Arc;
+	@:overload(function():SvgCoordinate{})
+	public function padAngle(angle:SvgCoordinate):Arc;
 
 	public function centroid(datum:Dynamic, ?index:Int):Dynamic;
 }
 
 
-typedef SvgTypeArg     = EitherType<String,Dynamic->String>;
-typedef SvgSizeArg     = EitherType<Float,Dynamic->Float>;
+typedef SvgTypeArg = EitherType<String,Dynamic->String>;
 
 @:native("d3.svg.symbol")
 extern class Symbol {
 	@:overload(function():SvgTypeArg{})
 	public function type(type:SvgTypeArg):Symbol;
 
-	@:overload(function():SvgSizeArg{})
-	public function size(size:SvgSizeArg):Symbol;
+	@:overload(function():SvgCoordinate{})
+	public function size(size:SvgCoordinate):Symbol;
 }
 
 
@@ -173,14 +174,14 @@ extern class Chord {
 	@:overload(function():SvgSourceArg{})
 	public function target(target:SvgSourceArg):Chord;
 
-	@:overload(function():SvgPointArg{})
-	public function radius(radius:SvgPointArg):Chord;
+	@:overload(function():SvgCoordinate{})
+	public function radius(radius:SvgCoordinate):Chord;
 
-	@:overload(function():SvgPointArg{})
-	public function startAngle(angle:SvgPointArg):Chord;
+	@:overload(function():SvgCoordinate{})
+	public function startAngle(angle:SvgCoordinate):Chord;
 
-	@:overload(function():SvgPointArg{})
-	public function endAngle(angle:SvgPointArg):Chord;
+	@:overload(function():SvgCoordinate{})
+	public function endAngle(angle:SvgCoordinate):Chord;
 }
 
 
@@ -204,8 +205,8 @@ extern class Diagonal {
 
 @:native("d3.svg.axis")
 extern class Axis {
-	@:overload(function():Float{})
-	public function scale(s:Float):Axis;
+	@:overload(function():Dynamic{})
+	public function scale(s:Dynamic):Axis;
 
 	@:overload(function():String{})
 	public function orient(value:String):Axis;
@@ -237,7 +238,7 @@ typedef SvgExtent = EitherType<PointArr, Array<PointArr>>;
 typedef SvgClamp = EitherType<PointArr, Bool>;
 
 @:native("d3.svg.brush")
-dynamic extern class Brush {
+extern class Brush {
 
 	@:overload(function():Float{})
 	public function x(scale:Float):Brush;
