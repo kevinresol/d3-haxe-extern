@@ -23,20 +23,17 @@ extern class Layout {
 	public function force():Force;
 	public function hierarchy():Hierarchy<Hierarchy<Dynamic>>;
 
-	@:overload(function():Array<Dynamic>->Int->Histogram{})
-	@:overload(function():Array<Dynamic>->Histogram{})
+	@:overload(function():Array<Dynamic>->?Int->Histogram{})
 	@:overload(function():Histogram{})
 	public function histogram():Dynamic;
 
 	public function pack():Pack;
 	public function partition():Partition;
 
-	@:overload(function():Array<Dynamic>->Int->Array<Dynamic>{})
-	@:overload(function():Array<Dynamic>->Array<Dynamic>{})
+	@:overload(function():Array<Dynamic>->?Int->Array<Dynamic>{})
 	public function pie():Pie;
 
-	@:overload(function():Array<Dynamic>->Int->Stack{})
-	@:overload(function():Array<Dynamic>->Stack{})
+	@:overload(function():Array<Dynamic>->?Int->Stack{})
 	public function stack():Stack;
 
 	public function tree():Tree;
@@ -122,25 +119,27 @@ extern class Force implements ArrayAccess<Dynamic> {
 	public function tick():Void;
 }
 
+
+typedef AngleArg = ForceLinkArg;
+
 @:native("d3.layout.pie")
 extern class Pie implements ArrayAccess<Dynamic> {
 
 	/*https://github.com/mbostock/d3/wiki/Pie-Layout*/
-	@:overload(function():Dynamic{})
-	public function value(value:Dynamic):Pie;
+	@:overload(function():Dynamic->?Int->Dynamic{})
+	public function value(value:Dynamic->?Int->Dynamic):Pie;
 
-	@:overload(function():Dynamic{})
-	public function sort(comparator:Dynamic->Dynamic->Int):Pie;
+	@:overload(function():Comparator{})
+	public function sort(comparator:Comparator):Pie;
 
-	@:overload(function():Float{})
-	@:overload(function():Dynamic->Int->Float{})
-	@:overload(function(value:Dynamic->Int->Float):Pie{})
-	public function startAngle(value:Float):Pie;
+	@:overload(function():AngleArg{})
+	public function startAngle(value:AngleArg):Pie;
 
-	@:overload(function():Float{})
-	@:overload(function():Dynamic->Int->Float{})
-	@:overload(function(value:Dynamic->Int->Float):Pie{})
-	public function endAngle(value:Float):Pie;
+	@:overload(function():AngleArg{})
+	public function endAngle(value:AngleArg):Pie;
+
+	@:overload(function():AngleArg{})
+	public function padAngle(value:AngleArg):Pie;
 
 }
 
