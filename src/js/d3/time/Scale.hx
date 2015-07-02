@@ -1,5 +1,6 @@
 package js.d3.time;
- import js.d3.format.Format;
+ import js.d3.locale.TimeFormat;
+ import js.d3.time.Interval;
 
 /**
  * ...
@@ -29,8 +30,11 @@ extern class Scale {
 
 	@:overload(function():Bool {})
 	public function clamp(boolean:Bool):Scale;
-	public function ticks(count:Int, ?step:Float):Array<Date>;
-	public function tickFormat(count:Int):Format;
+
+	@:overload(function(?count:Int):Array<Date> {})
+	public function ticks(interval:Interval, ?step:Int):Array<Date>;
+
+	public function tickFormat(count:Int):TimeFormat;
 	public function copy():Scale;
 
 }
