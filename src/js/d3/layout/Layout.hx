@@ -143,26 +143,27 @@ extern class Pie implements ArrayAccess<Dynamic> {
 
 }
 
+typedef StackOffset = EitherType<String, Array<Array<Float>>->Array<Float>>;
+typedef StackAccessor = EitherType<Dynamic->Float, Dynamic->Int->Float>;
+
 @:native("d3.layout.stack")
 extern class Stack implements ArrayAccess<Dynamic> {
 	/*https://github.com/mbostock/d3/wiki/Stack-Layout*/
 
-	@:overload(function():Dynamic{})
-	public function values(accessor:Dynamic):Stack;
+	@:overload(function():Dynamic->Dynamic{})
+	public function values(accessor:Dynamic->Dynamic):Stack;
 
-	@:overload(function():Dynamic{})
-	@:overload(function(offset:Dynamic):Stack{})
-	public function offset(offset:String):Stack;
+	@:overload(function():StackOffset{})
+	public function offset(offset:StackOffset):Stack;
 
-	@:overload(function():Dynamic{})
-	@:overload(function(order:Dynamic):Stack{})
-	public function order(order:String):Stack;
+	@:overload(function():StackOffset{})
+	public function order(order:StackOffset):Stack;
 
-	@:overload(function():Dynamic{})
-	public function x(accessor:Dynamic->Int->Float):Stack;
+	@:overload(function():StackAccessor{})
+	public function x(accessor:StackAccessor):Stack;
 
-	@:overload(function():Dynamic{})
-	public function y(accessor:Dynamic->Int->Float):Stack;
+	@:overload(function():StackAccessor{})
+	public function y(accessor:StackAccessor):Stack;
 
 	@:overload(function():Dynamic->Float->Float->Void{})
 	public function out(setter:Dynamic->Float->Float->Void):Stack;
