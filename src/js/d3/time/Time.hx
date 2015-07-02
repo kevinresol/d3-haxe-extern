@@ -1,6 +1,7 @@
 package js.d3.time;
  import js.d3.locale.TimeFormat;
  import js.d3.time.Scale;
+ import haxe.extern.EitherType;
 
 /**
  * ...
@@ -10,5 +11,5 @@ package js.d3.time;
 @:native("d3.time")
 extern class Time {
 	public var scale:Scale;
-	public var format:TimeFormat;
+	public var format:EitherType<TimeFormat,String->EitherType<TimeFormatter,Date->String>>;
 }
