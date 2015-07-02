@@ -5,7 +5,7 @@ package js.d3.time;
  import haxe.extern.EitherType;
 
 
-typedef IntervalShortcut = EitherType<Interval, Date->Date->?Int->Array<Date>>;
+typedef TimeRange = Date->Date->?Int->Array<Date>;
 
 /**
  * ...
@@ -19,21 +19,37 @@ extern class Time {
 	public var format    : EitherType<TimeFormat, String->EitherType<TimeFormatter, Date->String>>;
 
 	public var interval  : EitherType<Interval, Date->Date>;
-	public var second    : IntervalShortcut;
-	public var minute    : IntervalShortcut;
-	public var hour      : IntervalShortcut;
-	public var day       : IntervalShortcut;
-	public var week      : IntervalShortcut;
-	public var sunday    : IntervalShortcut;
-	public var monday    : IntervalShortcut;
-	public var tuesday   : IntervalShortcut;
-	public var wednesday : IntervalShortcut;
-	public var thursday  : IntervalShortcut;
-	public var friday    : IntervalShortcut;
-	public var saturday  : IntervalShortcut;
-	public var month     : IntervalShortcut;
-	public var year      : IntervalShortcut;
+	public var second    : Interval;
+	public var minute    : Interval;
+	public var hour      : Interval;
+	public var day       : Interval;
+	public var week      : Interval;
+	public var sunday    : Interval;
+	public var monday    : Interval;
+	public var tuesday   : Interval;
+	public var wednesday : Interval;
+	public var thursday  : Interval;
+	public var friday    : Interval;
+	public var saturday  : Interval;
+	public var month     : Interval;
+	public var year      : Interval;
 
+	public var seconds   : TimeRange;
+	public var minutes   : TimeRange;
+	public var hours     : TimeRange;
+	public var days      : TimeRange;
+	public var weeks     : TimeRange;
+	public var sundays   : TimeRange;
+	public var mondays   : TimeRange;
+	public var tuesdays  : TimeRange;
+	public var wednesdays: TimeRange;
+	public var thursdays : TimeRange;
+	public var fridays   : TimeRange;
+	public var saturdays : TimeRange;
+	public var months    : TimeRange;
+	public var years     : TimeRange;
+
+	public function dayOfYear       (date:Date) : Int;
 	public function weekOfYear      (date:Date) : Int;
 	public function sundayOfYear    (date:Date) : Int;
 	public function mondayOfYear    (date:Date) : Int;
