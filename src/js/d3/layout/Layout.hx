@@ -1,4 +1,5 @@
 package js.d3.layout;
+ import haxe.extern.EitherType;
 
 /**
  * ...
@@ -10,8 +11,8 @@ extern class Layout {
 	/*https://github.com/mbostock/d3/wiki/Layouts*/
 
 	@:overload(function(links:Array<Dynamic>):Dynamic{})
-	public function bundle():Dynamic;
 
+	public function bundle():Bundle;
 	public function chord():Chord;
 	public function cluster():Cluster;
 	public function force():Force;
@@ -179,25 +180,32 @@ extern class Histogram implements ArrayAccess<Dynamic>{
 
 }
 
+@:native("d3.layout.bundle")
+extern class Bundle {
+	/*https://github.com/mbostock/d3/wiki/Bundle-Layout*/
+}
+
+typedef Link = {source:Dynamic, target:Dynamic};
+typedef Node = {parent:Dynamic,children:Array<ClusterNode>, depth:Int, x:Float, y:Float};
+typedef Child = Dynamic;
+
 @:native("d3.layout.hierarchy")
 extern class Hierarchy implements ArrayAccess<Dynamic> {
 	/*https://github.com/mbostock/d3/wiki/Hierarchy-Layout*/
 
+	public function links(nodes:Array<Dynamic>):Array<Link>;
+
+	@:overload(function():Dynamic->Array<Child> {})
+	public function children(accessor:Dynamic->Array<Child>):Hierarchy;
+
 	@:overload(function():Dynamic{})
 	public function sort(comparator:Dynamic->Dynamic->Int):Hierarchy;
 
-	@:overload(function():Array<Int>{})
-	public function size(size:Array<Int>):Hierarchy;
+	@:overload(function():Array<Float>{})
+	public function size(size:Array<Float>):Hierarchy;
 
-	@:overload(function():Dynamic{})
-	public function children(accessor:Dynamic):Hierarchy;
-
-	public function nodes(root:Dynamic):Hierarchy;
-
-	public function links(nodes:Array<Dynamic>):Hierarchy;
-
-	@:overload(function():Dynamic{})
-	public function value(value:Dynamic):Hierarchy;
+	@:overload(function():Dynamic->Float{})
+	public function value(value:Dynamic->Dynamic):Hierarchy;
 
 	public function revalue(root:Dynamic):Hierarchy;
 }
@@ -205,38 +213,66 @@ extern class Hierarchy implements ArrayAccess<Dynamic> {
 @:native("d3.layout.cluster")
 extern class Cluster extends Hierarchy {
 	/*https://github.com/mbostock/d3/wiki/Cluster-Layout*/
-	@:overload(function():Dynamic->Dynamic->Float{})
-	public function separation(separation:Dynamic->Dynamic->Float):Cluster;
+	@:overload(function():Node->Node->Float{})
+	public function separation(separation:Node->Node->Float):Cluster;
+
+	public function nodes(root:Dynamic):Array<Node>;
 }
+
+typedef PackNode = {> Node, r:Float};
 
 @:native("d3.layout.pack")
 extern class Pack extends Hierarchy {
 	/*https://github.com/mbostock/d3/wiki/Pack-Layout*/
+	public function nodes(root:Dynamic):Array<PackNode>;
+
+	@:overload(function():EitherType<Null<Float>,Dynamic->Float> {})
+	public function radius(radius:EitherType<Null<Float>,Dynamic->Float>):Pack;
+
+	@:overload(function():Float {})
+	public function padding(padding:Float):Pack;
 }
+
+typedef PartitionNode = {> Node, dx:Float, dy:Flaot};
 
 @:native("d3.layout.partition")
 extern class Partition extends Hierarchy {
 	/*https://github.com/mbostock/d3/wiki/Partition-Layout*/
+	public function nodes(root:Dynamic):Array<PartitionNode>;
 }
 
 @:native("d3.layout.tree")
 extern class Tree extends Hierarchy {
-	@:overload(function():Dynamic->Dynamic->Float{})
-	public function separation(separation:Dynamic->Dynamic->Float):Tree;
+	@:overload(function():Node->Node->Float{})
+	public function separation(separation:Node->Node->Float):Tree;
+
+	public function nodes(root:Dynamic):Array<Node>;
+
+	@:overload(function():Array<Float> {})
+	public function nodeSize(nodeSize:Array<Float>):Tree;
 }
+
+typedef LayoutPadding = EitherType<Null<Float>, Array<Float>>;
+typedef LayoutPaddingParam = EitherType<LayoutPadding, PartitionNode->LayoutPadding>;
 
 @:native("d3.layout.treemap")
 extern class Treemap extends Hierarchy {
 	/*https://github.com/mbostock/d3/wiki/Treemap-Layout*/
 
-	@:overload(function():Dynamic{})
-	@:overload(function(padding:Dynamic):Treemap{})
-	@:overload(function(padding:Array<Float>):Treemap{})
-	public function padding(padding:Float):Treemap;
+	@:overload(function():LayoutPaddingParam{})
+	public function padding(padding:LayoutPaddingParam):Treemap;
 
 	@:overload(function():Bool{})
 	public function round(round:Bool):Treemap;
 
 	@:overload(function():Bool{})
 	public function sticky(sticky:Bool):Treemap;
+
+	@:overload(function():String{})
+	public function mode(mode:String):Treemap;
+
+	@:overload(function():Float{})
+	public function ratio(mode:Float):Treemap;
+
+	public function nodes(root:Dynamic):Array<PartitionNode>;
 }
