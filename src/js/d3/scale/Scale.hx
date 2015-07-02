@@ -27,11 +27,21 @@ extern class Scale {
 
 extern class Linear {
 	public function invert(y:Dynamic):Dynamic;
-	public function domain(?numbers:Array<Float>):Linear;
-	public function range(?values:Array<Dynamic>):Linear;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Linear;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Linear;
+
 	public function rangeRound(values:Array<Dynamic>):Linear;
-	public function interpolate(?factory:Array<Dynamic>):Linear;
-	public function clamp(?boolean:Array<Bool>):Linear;
+
+	@:overload(function():Array<Dynamic> {})
+	public function interpolate(factory:Array<Dynamic>):Linear;
+
+	@:overload(function():Boolean {})
+	public function clamp(boolean:Array<Bool>):Linear;
+
 	public function nice(?m:Int):Linear;
 	public function ticks(?count:Int):Int;
 	public function tickFormat(count:Int, ?format:String):Dynamic;
@@ -40,8 +50,13 @@ extern class Linear {
 
 extern class Identity {
 	public function invert(x:Dynamic):Dynamic;
-	public function domain(?numbers:Array<Float>):Identity;
-	public function range(?values:Array<Dynamic>):Identity;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Identity;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Identity;
+
 	public function ticks(?count:Int):Int;
 	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Identity;
@@ -49,12 +64,24 @@ extern class Identity {
 
 extern class Power {
 	public function invert(y:Dynamic):Dynamic;
-	public function domain(?numbers:Array<Float>):Power;
-	public function range(?values:Array<Dynamic>):Power;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Power;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Power;
+
 	public function rangeRound(values:Array<Dynamic>):Power;
-	public function exponent(?k:Float):Float;
-	public function interpolate(?interpolator:Array<Dynamic>):Dynamic;
-	public function clamp(?boolean:Array<Bool>):Dynamic;
+
+	@:overload(function():Float {})
+	public function exponent(k:Float):Float;
+
+	@:overload(function():Array<Dynamic> {})
+	public function interpolate(factory:Array<Dynamic>):Dynamic;
+
+	@:overload(function():Boolean {})
+	public function clamp(boolean:Array<Bool>):Dynamic;
+
 	public function nice(?m:Int):Power;
 	public function ticks(?count:Int):Int;
 	public function tickFormat(count:Int, ?format:String):Dynamic;
@@ -63,12 +90,22 @@ extern class Power {
 
 extern class Log {
 	public function invert(y:Dynamic):Dynamic;
-	public function domain(?numbers:Array<Float>):Log;
-	public function range(?values:Array<Dynamic>):Log;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Log;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Log;
+
 	public function rangeRound(values:Array<Dynamic>):Log;
 	public function base(?base:Int):Int;
-	public function interpolate(?interpolator:Array<Dynamic>):Dynamic;
-	public function clamp(?boolean:Array<Bool>):Dynamic;
+
+	@:overload(function():Array<Dynamic> {})
+	public function interpolate(factory:Array<Dynamic>):Dynamic;
+
+	@:overload(function():Boolean {})
+	public function clamp(boolean:Array<Bool>):Dynamic;
+
 	public function nice():Log;
 	public function ticks():Int;
 	public function tickFormat(count:Int, ?format:String):Dynamic;
@@ -77,29 +114,49 @@ extern class Log {
 
 extern class Quantize {
 	public function invertExtend(y:Dynamic):Dynamic;
-	public function domain(?numbers:Array<Float>):Quantize;
-	public function range(?values:Array<Dynamic>):Quantize;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Quantize;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Quantize;
+
 	public function copy():Quantize;
 }
 
 extern class Quantile {
 	public function invertExtend(y:Dynamic):Dynamic;
-	public function domain(?numbers:Array<Float>):Quantile;
-	public function range(?values:Array<Dynamic>):Quantile;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Quantile;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Quantile;
+
 	public function quantiles():Array<Dynamic>;
 	public function copy():Quantile;
 }
 
 extern class Threshold {
 	public function invertExtend(y:Dynamic):Dynamic;
-	public function domain(?numbers:Array<Float>):Threshold;
-	public function range(?values:Array<Dynamic>):Threshold;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Threshold;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Threshold;
+
 	public function copy():Threshold;
 }
 
 extern class Ordinal {
-	public function domain(?numbers:Array<Float>):Ordinal;
-	public function range(?values:Array<Dynamic>):Ordinal;
+
+	@:overload(function():Array<Float> {})
+	public function domain(numbers:Array<Float>):Ordinal;
+
+	@:overload(function():Array<Dynamic> {})
+	public function range(values:Array<Dynamic>):Ordinal;
+
 	public function rangePoints(interval:Array<Float>, ?padding:Float):Ordinal;
 	public function rangeRoundPoints(interval:Array<Float>, ?padding:Float):Ordinal;
 	public function rangeBands(interval:Array<Float>, ?padding:Float, ?outerPadding:Float):Ordinal;
