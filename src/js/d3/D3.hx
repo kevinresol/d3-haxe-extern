@@ -114,8 +114,8 @@ extern class D3
 	public static function descending<T>(a:T, b:T):Int;
 
 	/* Array/Math Extensions*/
-	public static function min<T>(arr:Array<T>,?accessor:T->T):T;
-	public static function max<T>(arr:Array<T>,?accessor:T->T):T;
+	public static function min<T>(arr:Array<T>,?accessor:T->Float):Float;
+	public static function max<T>(arr:Array<T>,?accessor:T->Float):Float;
 
 	public static function extend<T>(arr:Array<T>,?accessor:T->T):Array<T>;
 	public static function sum(arr:Array<Float>,?accessor:Float->Float):Float;

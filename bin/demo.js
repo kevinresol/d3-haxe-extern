@@ -1,10 +1,11 @@
-(function () { "use strict";
-var Demo = function() { }
+(function (console) { "use strict";
+var $estr = function() { return js_Boot.__string_rec(this,''); };
+var Demo = function() { };
 Demo.__name__ = true;
 Demo.main = function() {
 	console.log("hi");
 	var t = new Test();
-}
+};
 var Test = function() {
 	d3.select("#test").append("div").text(function() {
 		return "hi";
@@ -23,34 +24,9 @@ Test.randomIrwinHall = function(m) {
 		}
 		return s / m;
 	};
-}
-Test.getDynamic = function(name) {
-	return __js__(name);
-}
+};
 Test.prototype = {
-	histogram: function() {
-		var values = d3.range(1000).map(Test.randomIrwinHall(10));
-		var formatCount = d3.format(",.0f");
-		var margin = { top : 10, right : 30, bottom : 30, left : 30}, width = 960 - margin.left - margin.right, height = 500 - margin.top - margin.bottom;
-		var x = d3.scale.linear().domain([0,1]).range([0,width]);
-		var data = (d3.layout.histogram().bins(x.ticks(20)))(values);
-		var y = d3.scale.linear().domain([0,d3.max(data,function(d) {
-			return d.y;
-		})]).range([height,0]);
-		var xAxis = d3.svg.axis().scale(x);
-		var svg = d3.select("body").append("svg").attr("width",width + margin.left + margin.right).attr("height",height + margin.top + margin.bottom).append("g").attr("transform","translate(" + margin.left + "," + margin.top + ")");
-		var bar = svg.selectAll(".bar").data(data).enter().append("g").attr("class","bar").attr("transform",function(d) {
-			return "translate(" + Std.string(x(d.x)) + "," + Std.string(y(d.y)) + ")";
-		});
-		bar.append("rect").attr("x",1).attr("width",x(data[0].dx) - 1).attr("height",function(d) {
-			return height - y(d.y);
-		});
-		bar.append("text").attr("dy",".75em").attr("y",6).attr("x",x(data[0].dx) / 2).attr("text-anchor","middle").text(function(d) {
-			return formatCount(d.y);
-		});
-		svg.append("g").attr("class","x axis").attr("transform","translate(0," + height + ")").call(xAxis);
-	}
-	,pie: function() {
+	pie: function() {
 		var data = [200,200,200,200,200];
 		var i = 1;
 		var w = 960;
@@ -63,22 +39,49 @@ Test.prototype = {
 		var arcs = svg.selectAll("path").data(donut(data)).enter().append("svg:path").attr("fill",function(d,i1) {
 			return color(i1);
 		}).attr("d",arc);
-		d3.select(js.Browser.document.body).on("click",function(datum,index) {
+		d3.select(window.document.body).on("click",function(datum,index) {
 			data = d3.range(5).map(Test.randomIrwinHall(2));
 			arcs.data(donut(data));
 			arcs.attr("d",arc);
 		});
 	}
-}
-var Std = function() { }
+	,histogram: function() {
+		var values = d3.range(1000).map(Test.randomIrwinHall(10));
+		var formatCount = d3.format(",.0f");
+		var margin_top = 10;
+		var margin_right = 30;
+		var margin_bottom = 30;
+		var margin_left = 30;
+		var width = 960 - margin_left - margin_right;
+		var height = 500 - margin_top - margin_bottom;
+		var x = d3.scale.linear().domain([0,1]).range([0,width]);
+		var data = (d3.layout.histogram().bins(x.ticks(20)))(values);
+		var y = d3.scale.linear().domain([0,d3.max(values,function(d) {
+			return d.y;
+		})]).range([height,0]);
+		var xAxis = d3.svg.axis().scale(x);
+		var svg = d3.select("body").append("svg").attr("width",width + margin_left + margin_right).attr("height",height + margin_top + margin_bottom).append("g").attr("transform","translate(" + margin_left + "," + margin_top + ")");
+		var bar = svg.selectAll(".bar").data(data).enter().append("g").attr("class","bar").attr("transform",function(d1) {
+			return "translate(" + Std.string(x(d1.x)) + "," + Std.string(y(d1.y)) + ")";
+		});
+		bar.append("rect").attr("x",1).attr("width",x(data[0].dx) - 1).attr("height",function(d2) {
+			return height - y(d2.y);
+		});
+		bar.append("text").attr("dy",".75em").attr("y",6).attr("x",x(data[0].dx) / 2).attr("text-anchor","middle").text(function(d3) {
+			return formatCount(d3.y);
+		});
+		svg.append("g").attr("class","x axis").attr("transform","translate(0," + height + ")").call(xAxis);
+	}
+};
+Math.__name__ = true;
+var Std = function() { };
 Std.__name__ = true;
 Std.string = function(s) {
-	return js.Boot.__string_rec(s,"");
-}
-var js = {}
-js.Boot = function() { }
-js.Boot.__name__ = true;
-js.Boot.__string_rec = function(o,s) {
+	return js_Boot.__string_rec(s,"");
+};
+var js_Boot = function() { };
+js_Boot.__name__ = true;
+js_Boot.__string_rec = function(o,s) {
 	if(o == null) return "null";
 	if(s.length >= 5) return "<...>";
 	var t = typeof(o);
@@ -88,26 +91,27 @@ js.Boot.__string_rec = function(o,s) {
 		if(o instanceof Array) {
 			if(o.__enum__) {
 				if(o.length == 2) return o[0];
-				var str = o[0] + "(";
+				var str2 = o[0] + "(";
 				s += "\t";
-				var _g1 = 2, _g = o.length;
+				var _g1 = 2;
+				var _g = o.length;
 				while(_g1 < _g) {
-					var i = _g1++;
-					if(i != 2) str += "," + js.Boot.__string_rec(o[i],s); else str += js.Boot.__string_rec(o[i],s);
+					var i1 = _g1++;
+					if(i1 != 2) str2 += "," + js_Boot.__string_rec(o[i1],s); else str2 += js_Boot.__string_rec(o[i1],s);
 				}
-				return str + ")";
+				return str2 + ")";
 			}
 			var l = o.length;
 			var i;
-			var str = "[";
+			var str1 = "[";
 			s += "\t";
-			var _g = 0;
-			while(_g < l) {
-				var i1 = _g++;
-				str += (i1 > 0?",":"") + js.Boot.__string_rec(o[i1],s);
+			var _g2 = 0;
+			while(_g2 < l) {
+				var i2 = _g2++;
+				str1 += (i2 > 0?",":"") + js_Boot.__string_rec(o[i2],s);
 			}
-			str += "]";
-			return str;
+			str1 += "]";
+			return str1;
 		}
 		var tostr;
 		try {
@@ -115,7 +119,7 @@ js.Boot.__string_rec = function(o,s) {
 		} catch( e ) {
 			return "???";
 		}
-		if(tostr != null && tostr != Object.toString) {
+		if(tostr != null && tostr != Object.toString && typeof(tostr) == "function") {
 			var s2 = o.toString();
 			if(s2 != "[object Object]") return s2;
 		}
@@ -123,7 +127,7 @@ js.Boot.__string_rec = function(o,s) {
 		var str = "{\n";
 		s += "\t";
 		var hasp = o.hasOwnProperty != null;
-		for( var k in o ) { ;
+		for( var k in o ) {
 		if(hasp && !o.hasOwnProperty(k)) {
 			continue;
 		}
@@ -131,7 +135,7 @@ js.Boot.__string_rec = function(o,s) {
 			continue;
 		}
 		if(str.length != 2) str += ", \n";
-		str += s + k + " : " + js.Boot.__string_rec(o[k],s);
+		str += s + k + " : " + js_Boot.__string_rec(o[k],s);
 		}
 		s = s.substring(1);
 		str += "\n" + s + "}";
@@ -143,26 +147,8 @@ js.Boot.__string_rec = function(o,s) {
 	default:
 		return String(o);
 	}
-}
-js.Browser = function() { }
-js.Browser.__name__ = true;
-js.d3 = {}
-js.d3._D3 = {}
-js.d3._D3.InitPriority = function() { }
-js.d3._D3.InitPriority.__name__ = true;
-Math.__name__ = ["Math"];
-Math.NaN = Number.NaN;
-Math.NEGATIVE_INFINITY = Number.NEGATIVE_INFINITY;
-Math.POSITIVE_INFINITY = Number.POSITIVE_INFINITY;
-Math.isFinite = function(i) {
-	return isFinite(i);
-};
-Math.isNaN = function(i) {
-	return isNaN(i);
 };
 String.__name__ = true;
 Array.__name__ = true;
-js.Browser.document = typeof window != "undefined" ? window.document : null;
-js.d3._D3.InitPriority.important = "important";
 Demo.main();
-})();
+})(typeof console != "undefined" ? console : {log:function(){}});
