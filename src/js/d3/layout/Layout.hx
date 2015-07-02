@@ -41,7 +41,7 @@ extern class Layout {
 typedef Matrix     = Array<Array<Int>>;
 typedef Comparator = Null<Dynamic->Dynamic->Int>;
 typedef ChordObj   = {index:Int, subIndex:Int, startAngle:Float, endAngle:Float, value:Dynamic};
-typedef Chord      = {source:ChordObj, target:ChordObj};
+typedef ChordElm   = {source:ChordObj, target:ChordObj};
 typedef GroupObj   = {index:Int, startAngle:Float, endAngle:Float, value:Dynamic};
 
 @:native("d3.layout.chord")
@@ -62,7 +62,7 @@ extern class Chord implements ArrayAccess<Dynamic>{
 	@:overload(function():Comparator{})
 	public function sortChords(comparator:Comparator):Chord;
 
-	public function chords():Array<Chord>;
+	public function chords():Array<ChordElm>;
 	public function groups():Array<GroupObj>;
 }
 
@@ -191,7 +191,7 @@ extern class Bundle {
 }
 
 typedef Link = {source:Dynamic, target:Dynamic};
-typedef Node = {parent:Dynamic,children:Array<ClusterNode>, depth:Int, x:Float, y:Float};
+typedef Node = {parent:Dynamic,children:Array<Node>, depth:Int, x:Float, y:Float};
 typedef Child = Dynamic;
 
 @:native("d3.layout.hierarchy")
@@ -238,7 +238,7 @@ extern class Pack extends Hierarchy {
 	public function padding(padding:Float):Pack;
 }
 
-typedef PartitionNode = {> Node, dx:Float, dy:Flaot};
+typedef PartitionNode = {> Node, dx:Float, dy:Float};
 
 @:native("d3.layout.partition")
 extern class Partition extends Hierarchy {
