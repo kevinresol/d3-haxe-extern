@@ -6,6 +6,11 @@ package js.d3.layout;
  * @author Mike Almond - https://github.com/mikedotalmond
  */
 
+typedef Link = {source:Dynamic, target:Dynamic};
+typedef Node = {parent:Dynamic,children:Array<Node>, depth:Int, x:Float, y:Float};
+typedef Child = Dynamic;
+
+
 @:native("d3.layout")
 extern class Layout {
 	/*https://github.com/mbostock/d3/wiki/Layouts*/
@@ -66,31 +71,30 @@ extern class Chord implements ArrayAccess<Dynamic>{
 	public function groups():Array<GroupObj>;
 }
 
+
+typedef ForceNode = {index:Int, x:Float, y:Float, px:Float, py:Float, fixed:Bool, weight:Float};
+typedef ForceLinkArg = EitherType<Float, EitherType<Void->Float, EitherType<Dynamic->Float, Dynamic->Int->Float>>>;
+
 @:native("d3.layout.force")
 extern class Force implements ArrayAccess<Dynamic> {
 	/*https://github.com/mbostock/d3/wiki/Force-Layout*/
 
-	@:overload(function():Array<Int>{})
-	public function size(size:Array<Int>):Force;
+	@:overload(function():Array<Float>{})
+	public function size(size:Array<Float>):Force;
 
-	@:overload(function():Float{})
-	@:overload(function(distance:Dynamic->Float):Force{})
-	@:overload(function(distance:Void->Float):Force{})
-	public function linkDistance(distance:Float):Force;
+	@:overload(function():ForceLinkArg{})
+	public function linkDistance(distance:ForceLinkArg):Force;
 
-	@:overload(function():Float{})
-	@:overload(function(strength:Dynamic->Float):Force{})
-	@:overload(function(strength:Void->Float):Force{})
-	public function linkStrength(strength:Float):Force;
+	@:overload(function():ForceLinkArg{})
+	public function linkStrength(strength:ForceLinkArg):Force;
 
 	@:overload(function():Float{})
 	public function friction(friction:Float):Force;
 
+	@:overload(function():ForceLinkArg {})
+	public function charge(charge:ForceLinkArg):Force;
 
-	@:overload(function(node:Dynamic -> Float):Force {})
-	public function charge(charge:Float):Force;
-
-	//@:overload(function(node:Dynamic -> Float):Force {})
+	@:overload(function():Float {})
 	public function chargeDistance(chargeDistance:Float):Force;
 
 	@:overload(function():Float{})
@@ -99,11 +103,12 @@ extern class Force implements ArrayAccess<Dynamic> {
 	@:overload(function():Float{})
 	public function gravity(gravity:Float):Force;
 
-	@:overload(function():Array<Dynamic>{})
-	public function nodes(nodes:Array<Dynamic>):Force;
+	// using ForceNode type is not required here, but migt be used as initial value
+	@:overload(function<T>():Array<T>{})
+	public function nodes<T>(nodes:Array<T>):Force;
 
-	@:overload(function():Array<Dynamic>{})
-	public function links(nodes:Array<Dynamic>):Force;
+	@:overload(function():Array<Link>{})
+	public function links(nodes:Array<Link>):Force;
 
 	@:overload(function():Float{})
 	public function alpha(value:Float):Force;
@@ -189,10 +194,6 @@ extern class Histogram implements ArrayAccess<Dynamic>{
 extern class Bundle {
 	/*https://github.com/mbostock/d3/wiki/Bundle-Layout*/
 }
-
-typedef Link = {source:Dynamic, target:Dynamic};
-typedef Node = {parent:Dynamic,children:Array<Node>, depth:Int, x:Float, y:Float};
-typedef Child = Dynamic;
 
 @:native("d3.layout.hierarchy")
 extern class Hierarchy<T> implements ArrayAccess<Dynamic> {
