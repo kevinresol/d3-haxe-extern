@@ -1,6 +1,8 @@
 package js.d3.svg;
-import js.d3.time.Format;
-import haxe.extern.EitherType;
+ import js.d3.time.Format;
+ import js.d3.selection.Selection;
+ import js.d3.transition.Transition;
+ import haxe.extern.EitherType;
 
 /**
  * ...
@@ -13,6 +15,7 @@ typedef PointObj       = {x:Float,y:Float};
 typedef SvgInterpolate = EitherType<String,Array<PointArr>->String>;
 typedef SvgCoordinate  = EitherType<Float,Dynamic->Float>;
 typedef SvgPointArg    = EitherType<PointArr,PointArr->Float>;
+typedef SvgSelection   = EitherType<Selection,Transition>;
 
 
 @:native("d3.svg")
@@ -38,10 +41,10 @@ extern class SVG {
 	@:overload(function():Dynamic->?Int->Diagonal{})
 	public function diagonal():Diagonal;
 
-	@:overload(function():Dynamic->?Int->Axis{})
+	@:overload(function():SvgSelection->Axis{})
 	public function axis():Axis;
 
-	@:overload(function():Dynamic->?Int->Brush{})
+	@:overload(function():SvgSelection->Brush{})
 	public function brush():Brush;
 }
 
@@ -201,42 +204,52 @@ extern class Diagonal {
 
 @:native("d3.svg.axis")
 extern class Axis {
-	@:overload(function():Dynamic{})
-	public function scale(s:Dynamic):Axis;
+	@:overload(function():Float{})
+	public function scale(s:Float):Axis;
+
+	@:overload(function():String{})
+	public function orient(value:String):Axis;
 
 	@:overload(function():Dynamic{})
 	@:overload(function(ticks:Int):Axis{})
 	public function ticks(fb:Dynamic, i:Int):Axis;
 
-	@:overload(function():Dynamic{})
+	@:overload(function():Null<Array<Int>>{})
 	public function tickValues(?values:Array<Int>):Axis;
 
-	@:overload(function():Dynamic{})
-	public function tickSubdivide(?n:Int):Axis;
+	@:overload(function():Float{})
+	public function tickSize(inner:Float, ?outer:Float):Axis;
 
-	@:overload(function(major:Int, ?minor:Int, ?end:Int):Axis{})
-	public function tickSize():Dynamic;
+	@:overload(function():Float{})
+	public function innerTickSize(inner:Float):Axis;
 
-	@:overload(function(padding:Int):Axis{})
-	public function tickPadding():Int;
+	@:overload(function():Float{})
+	public function outerTickSize(outer:Float):Axis;
 
-	@:overload(function(format:Format):Axis{})
-	public function tickFormat():Format;
+	@:overload(function():Float{})
+	public function tickPadding(padding:Float):Axis;
 
-	public function orient(value:String):Axis;
+	@:overload(function():Format{})
+	public function tickFormat(format:Format):Axis;
 }
 
+typedef SvgExtent = EitherType<PointArr, Array<PointArr>>;
+typedef SvgClamp = EitherType<PointArr, Bool>;
+
 @:native("d3.svg.brush")
-extern class Brush {
+dynamic extern class Brush {
 
-	@:overload(function():SvgCoordinate{})
-	public function x(scale:SvgCoordinate):Brush;
+	@:overload(function():Float{})
+	public function x(scale:Float):Brush;
 
-	@:overload(function():SvgCoordinate{})
-	public function y(scale:SvgCoordinate):Brush;
+	@:overload(function():Float{})
+	public function y(scale:Float):Brush;
 
-	@:overload(function():Dynamic{})
-	public function extent(values:Array<Float>):Brush;
+	@:overload(function():SvgExtent{})
+	public function extent(values:SvgExtent):Brush;
+
+	@:overload(function():SvgClamp{})
+	public function clamp(clamp:SvgClamp):Brush;
 
 	public function clear():Brush;
 	public function empty():Bool;
