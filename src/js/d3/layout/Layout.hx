@@ -16,7 +16,7 @@ extern class Layout {
 	public function chord():Chord;
 	public function cluster():Cluster;
 	public function force():Force;
-	public function hierarchy():Hierarchy;
+	public function hierarchy():Hierarchy<Hierarchy<Dynamic>>;
 
 	@:overload(function():Array<Dynamic>->Int->Histogram{})
 	@:overload(function():Array<Dynamic>->Histogram{})
@@ -195,28 +195,28 @@ typedef Node = {parent:Dynamic,children:Array<Node>, depth:Int, x:Float, y:Float
 typedef Child = Dynamic;
 
 @:native("d3.layout.hierarchy")
-extern class Hierarchy implements ArrayAccess<Dynamic> {
+extern class Hierarchy<T> implements ArrayAccess<Dynamic> {
 	/*https://github.com/mbostock/d3/wiki/Hierarchy-Layout*/
 
 	public function links(nodes:Array<Dynamic>):Array<Link>;
 
 	@:overload(function():Dynamic->Array<Child> {})
-	public function children(accessor:Dynamic->Array<Child>):Hierarchy;
+	public function children(accessor:Dynamic->Array<Child>):T;
 
 	@:overload(function():Dynamic{})
-	public function sort(comparator:Dynamic->Dynamic->Int):Hierarchy;
+	public function sort(comparator:Dynamic->Dynamic->Int):T;
 
 	@:overload(function():Array<Float>{})
-	public function size(size:Array<Float>):Hierarchy;
+	public function size(size:Array<Float>):T;
 
 	@:overload(function():Dynamic->Float{})
-	public function value(value:Dynamic->Dynamic):Hierarchy;
+	public function value(value:Dynamic->Dynamic):T;
 
-	public function revalue(root:Dynamic):Hierarchy;
+	public function revalue(root:Dynamic):T;
 }
 
 @:native("d3.layout.cluster")
-extern class Cluster extends Hierarchy {
+extern class Cluster extends Hierarchy<Cluster> {
 	/*https://github.com/mbostock/d3/wiki/Cluster-Layout*/
 	@:overload(function():Node->Node->Float{})
 	public function separation(separation:Node->Node->Float):Cluster;
@@ -227,7 +227,7 @@ extern class Cluster extends Hierarchy {
 typedef PackNode = {> Node, r:Float};
 
 @:native("d3.layout.pack")
-extern class Pack extends Hierarchy {
+extern class Pack extends Hierarchy<Pack> {
 	/*https://github.com/mbostock/d3/wiki/Pack-Layout*/
 	public function nodes(root:Dynamic):Array<PackNode>;
 
@@ -241,13 +241,13 @@ extern class Pack extends Hierarchy {
 typedef PartitionNode = {> Node, dx:Float, dy:Float};
 
 @:native("d3.layout.partition")
-extern class Partition extends Hierarchy {
+extern class Partition extends Hierarchy<Partition> {
 	/*https://github.com/mbostock/d3/wiki/Partition-Layout*/
 	public function nodes(root:Dynamic):Array<PartitionNode>;
 }
 
 @:native("d3.layout.tree")
-extern class Tree extends Hierarchy {
+extern class Tree extends Hierarchy<Tree> {
 	@:overload(function():Node->Node->Float{})
 	public function separation(separation:Node->Node->Float):Tree;
 
@@ -261,7 +261,7 @@ typedef LayoutPadding = EitherType<Null<Float>, Array<Float>>;
 typedef LayoutPaddingParam = EitherType<LayoutPadding, PartitionNode->LayoutPadding>;
 
 @:native("d3.layout.treemap")
-extern class Treemap extends Hierarchy {
+extern class Treemap extends Hierarchy<Treemap> {
 	/*https://github.com/mbostock/d3/wiki/Treemap-Layout*/
 
 	@:overload(function():LayoutPaddingParam{})
