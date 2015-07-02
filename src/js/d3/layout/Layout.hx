@@ -169,21 +169,24 @@ extern class Stack implements ArrayAccess<Dynamic> {
 	public function out(setter:Dynamic->Float->Float->Void):Stack;
 }
 
+
+typedef Range = Array<Float>;
+typedef Tresholds = Range;
+typedef HistogramRange = EitherType<Range, EitherType<Array<Dynamic>->Range, Array<Dynamic>->Int->Range>>;
+typedef HistogramBins  = EitherType<Float, EitherType<Tresholds, Range->Tresholds>>;
+
 @:native("d3.layout.histogram")
 extern class Histogram implements ArrayAccess<Dynamic>{
 	/*https://github.com/mbostock/d3/wiki/Histogram-Layout*/
 
-	@:overload(function():Dynamic{})
-	public function value(accessor:Dynamic):Histogram;
+	@:overload(function():Dynamic->Dynamic{})
+	public function value(accessor:Dynamic->Dynamic):Histogram;
 
-	@:overload(function():Void->Array<Float>{})
-	@:overload(function(range:Void->Array<Float>):Histogram{})
-	public function range(range:Dynamic):Histogram;
+	@:overload(function():HistogramRange{})
+	public function range(range:HistogramRange):Histogram;
 
-	@:overload(function():Dynamic{})
-	@:overload(function(bins:Dynamic):Histogram{})
-	@:overload(function(bins:Array<Float>):Histogram{})
-	public function bins(bins:Float):Histogram;
+	@:overload(function():HistogramBins{})
+	public function bins(bins:HistogramBins):Histogram;
 
 	@:overload(function():Bool{})
 	public function frequency(frequency:Bool):Histogram;
