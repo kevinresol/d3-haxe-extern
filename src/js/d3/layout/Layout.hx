@@ -30,11 +30,13 @@ extern class Layout {
 	public function pack():Pack;
 	public function partition():Partition;
 
-	@:overload(function():Array<Dynamic>->?Int->Array<Dynamic>{})
-	public function pie():Pie;
+	@:overload(function():Array<Dynamic>->?Int->Pie{})
+	@:overload(function():Pie {})
+	public function pie():Dynamic;
 
 	@:overload(function():Array<Dynamic>->?Int->Stack{})
-	public function stack():Stack;
+	@:overload(function():Stack {})
+	public function stack():Dynamic;
 
 	public function tree():Tree;
 	public function treemap():Treemap;
