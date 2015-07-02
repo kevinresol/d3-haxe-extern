@@ -43,7 +43,7 @@ extern class Linear {
 	public function clamp(boolean:Bool):Linear;
 
 	public function nice(?m:Int):Linear;
-	public function ticks(?count:Int):Int;
+	public function ticks(?count:Int):Array<Float>;
 	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Linear;
 }
@@ -57,7 +57,7 @@ extern class Identity {
 	@:overload(function():Array<Dynamic> {})
 	public function range(values:Array<Dynamic>):Identity;
 
-	public function ticks(?count:Int):Int;
+	public function ticks(?count:Int):Array<Float>;
 	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Identity;
 }
@@ -83,7 +83,7 @@ extern class Power {
 	public function clamp(boolean:Bool):Dynamic;
 
 	public function nice(?m:Int):Power;
-	public function ticks(?count:Int):Int;
+	public function ticks(?count:Int):Array<Float>;
 	public function tickFormat(count:Int, ?format:String):Dynamic;
 	public function copy():Power;
 }
