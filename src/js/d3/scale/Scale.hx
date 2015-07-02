@@ -39,8 +39,8 @@ extern class Linear {
 	@:overload(function():Array<Dynamic> {})
 	public function interpolate(factory:Array<Dynamic>):Linear;
 
-	@:overload(function():Boolean {})
-	public function clamp(boolean:Array<Bool>):Linear;
+	@:overload(function():Bool {})
+	public function clamp(boolean:Bool):Linear;
 
 	public function nice(?m:Int):Linear;
 	public function ticks(?count:Int):Int;
@@ -79,8 +79,8 @@ extern class Power {
 	@:overload(function():Array<Dynamic> {})
 	public function interpolate(factory:Array<Dynamic>):Dynamic;
 
-	@:overload(function():Boolean {})
-	public function clamp(boolean:Array<Bool>):Dynamic;
+	@:overload(function():Bool {})
+	public function clamp(boolean:Bool):Dynamic;
 
 	public function nice(?m:Int):Power;
 	public function ticks(?count:Int):Int;
@@ -103,8 +103,8 @@ extern class Log {
 	@:overload(function():Array<Dynamic> {})
 	public function interpolate(factory:Array<Dynamic>):Dynamic;
 
-	@:overload(function():Boolean {})
-	public function clamp(boolean:Array<Bool>):Dynamic;
+	@:overload(function():Bool {})
+	public function clamp(boolean:Bool):Dynamic;
 
 	public function nice():Log;
 	public function ticks():Int;

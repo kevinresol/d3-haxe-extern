@@ -10,6 +10,6 @@ package js.d3.time;
 
 @:native("d3.time")
 extern class Time {
-	public var scale:Scale;
+	public var scale:EitherType<Scale,?Dynamic->Scale>;
 	public var format:EitherType<TimeFormat,String->EitherType<TimeFormatter,Date->String>>;
 }
