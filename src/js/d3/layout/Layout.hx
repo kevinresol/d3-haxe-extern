@@ -38,27 +38,32 @@ extern class Layout {
 	public function treemap():Treemap;
 }
 
+typedef Matrix     = Array<Array<Int>>;
+typedef Comparator = Null<Dynamic->Dynamic->Int>;
+typedef ChordObj   = {index:Int, subIndex:Int, startAngle:Float, endAngle:Float, value:Dynamic};
+typedef Chord      = {source:ChordObj, target:ChordObj};
+typedef GroupObj   = {index:Int, startAngle:Float, endAngle:Float, value:Dynamic};
 
 @:native("d3.layout.chord")
 extern class Chord implements ArrayAccess<Dynamic>{
 	/*https://github.com/mbostock/d3/wiki/Chord-Layout*/
-	@:overload(function():Array<Int>{})
-	public function matrix(matrix:Array<Int>):Chord;
+	@:overload(function():Matrix{})
+	public function matrix(matrix:Matrix):Chord;
 
 	@:overload(function():Float{})
 	public function padding(value:Float):Chord;
 
-	@:overload(function():Dynamic{})
-	public function sortGroups(comparator:Dynamic->Dynamic->Int):Chord;
+	@:overload(function():Comparator{})
+	public function sortGroups(comparator:Comparator):Chord;
 
-	@:overload(function():Dynamic{})
-	public function sortSubgroups(comparator:Dynamic->Dynamic->Int):Chord;
+	@:overload(function():Comparator{})
+	public function sortSubgroups(comparator:Comparator):Chord;
 
-	@:overload(function():Dynamic{})
-	public function sortChords(comparator:Dynamic->Dynamic->Int):Chord;
+	@:overload(function():Comparator{})
+	public function sortChords(comparator:Comparator):Chord;
 
-	public function chords():Dynamic;
-	public function groups():Dynamic;
+	public function chords():Array<Chord>;
+	public function groups():Array<GroupObj>;
 }
 
 @:native("d3.layout.force")
