@@ -21,6 +21,15 @@ extern class Geography {
 	@:overload(function():Rest<Dynamic>->Polygon{})
 	public function circle():Circle;
 
+	public function area(feature:Dynamic):Float;
+	public function bounds(feature:Dynamic):Array<Coordinate>;
+	public function distance(a:Coordinate, b:Coordinate):Float;
+	public function length(feature:Dynamic):Float;
+	public function interpolate(source:Coordinate, target:Coordinate):?Float->Coordinate;
+
+	@:overload(function():Coordinate->Coordinate{})
+	public function rotation(rotate):Rotation;
+
 	// projections...
 	@:overload(function():Array<Float>->Array<Float>{})
 	public function mercator():Mercator;
@@ -112,6 +121,12 @@ extern class Circle {
 
 	@:overload(function () : Float {})
 	public function precission (precission:Float) : Circle;
+}
+
+
+@:native("d3.geo.rotation")
+extern class Rotation {
+	public function invert(location:Coordinate):Coordinate;
 }
 
 
