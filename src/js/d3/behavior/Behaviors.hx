@@ -1,4 +1,5 @@
 package js.d3.behavior;
+ import js.d3.selection.Selection;
 
 /**
  * ...
@@ -9,17 +10,44 @@ package js.d3.behavior;
 extern class Behaviors {
 	/*https://github.com/mbostock/d3/wiki/Behaviors*/
 	public function drag():Drag;
+
+    @:overload(function (selection:Selection):Zoom {})
 	public function zoom():Zoom;
-	
+
 }
 
+@:native("d3.behaviour.drag")
 extern class Drag {
-	/*https://github.com/mbostock/d3/wiki/Drag-Behavior#wiki-drag*/
-	public function on(type:String, listener:Dynamic):Drag;
+    /*https://github.com/mbostock/d3/wiki/Drag-Behavior*/
+    public function on(type:String, listener:Dynamic):Drag;
+
+    @:overload(function ():Null<Dynamic->?Int->Dynamic> {})
+    public function origin(origin:Null<Dynamic->?Int->Dynamic>):Drag;
 }
 
+@:native("d3.behaviour.zoom")
 extern class Zoom {
 	/*https://github.com/mbostock/d3/wiki/Zoom-Behavior*/
-	public function on(type:String, listener:Dynamic):Drag;
-	public function extent():Drag;
+    @:overload(function():Array<Float> {})
+    public function translate(translate:Array<Float>):Zoom;
+
+    @:overload(function():Float {})
+    public function scale(scale:Float):Zoom;
+
+    @:overload(function():Array<Float> {})
+    public function scaleExtent(scaleExtent:Array<Float>):Zoom;
+
+    @:overload(function():Array<Float> {})
+    public function center(center:Array<Float>):Zoom;
+
+    @:overload(function():Array<Float> {})
+    public function size(size:Array<Float>):Zoom;
+
+    @:overload(function():Float {})
+    public function x(x:Float):Zoom;
+
+    @:overload(function():Float {})
+    public function y(y:Float):Zoom;
+
+	public function on(type:String, listener:Dynamic):Zoom;
 }
