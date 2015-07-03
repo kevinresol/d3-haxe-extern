@@ -1,4 +1,5 @@
 package js.d3.geo;
+ import haxe.extern.EitherType;
 
 /**
  * ...
@@ -17,6 +18,9 @@ extern class Geography {
 	@:overload(function():Void->LineString{}) //FIXME, not sure whether it returns the coordinates property as Array<Float> or as Array<LineString>
 	public function graticule():Graticule;
 
+	@:overload(function():Rest<Dynamic>->Polygon{})
+	public function circle():Circle;
+
 	// projections...
 	@:overload(function():Array<Float>->Array<Float>{})
 	public function mercator():Mercator;
@@ -32,7 +36,11 @@ extern class Geography {
 
 }
 
-typedef PathContext = {
+
+/*https://github.com/mbostock/d3/wiki/Geo-Paths*/
+
+private typedef Coordinate = Array<Float>;
+private typedef PathContext = {
 	public function beginPath():Void;
 	public function closePath():Void;
 	public function moveTo(x:Float, y:Float):Void;
@@ -43,15 +51,15 @@ typedef PathContext = {
 @:native("d3.geo.path")
 extern class Path {
 
-	@:overload(function():Array<Float>->Array<Float>{})
-	public function projection(projection:Array<Float>->Array<Float>):Path;
+	@:overload(function():Coordinate->Coordinate{})
+	public function projection(projection:Coordinate->Coordinate):Path;
 
 	@:overload(function():PathContext{})
 	public function context(context:PathContext):Path;
 
 	public function area(feature:Dynamic):Float;
-	public function centroid(feature:Dynamic):Array<Float>;
-	public function bounds(feature:Dynamic):Array<Array<Float>>;
+	public function centroid(feature:Dynamic):Coordinate;
+	public function bounds(feature:Dynamic):Array<Coordinate>;
 
 	@:overload(function():Dynamic{})
 	@:overload(function (radius:Dynamic):Path{})
@@ -59,7 +67,7 @@ extern class Path {
 }
 
 
-private typedef Coordinate = Array<Float>;
+
 private typedef LineString = {type:String, coordinates:Coordinate};
 private typedef Polygon = {type:String, coordinates:Array<Coordinate>};
 
@@ -89,6 +97,23 @@ extern class Graticule {
 	@:overload(function () : Float {})
 	public function precission (precission:Float) : Graticule;
 }
+
+
+
+typedef CircleOrigin = EitherType<Coordinate, Rest<Dynamic>->Coordinate>;
+
+@:native("d3.geo.circle")
+extern class Circle {
+	@:overload(function():CircleOrigin {})
+	public function origin (origin:CircleOrigin) : Circle;
+
+	@:overload(function():Float {})
+	public function angle (x:Float) : Circle;
+
+	@:overload(function () : Float {})
+	public function precission (precission:Float) : Circle;
+}
+
 
 
 /*https://github.com/mbostock/d3/wiki/Geo-Projections*/
