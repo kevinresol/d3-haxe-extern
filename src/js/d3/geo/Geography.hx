@@ -1,5 +1,6 @@
 package js.d3.geo;
  import haxe.extern.EitherType;
+ import haxe.extern.Rest;
 
 /**
  * ...
@@ -29,7 +30,7 @@ extern class Geography {
 	public function interpolate(source:Coordinate, target:Coordinate):?Float->Coordinate;
 
 	@:overload(function():Coordinate->Coordinate{})
-	public function rotation(rotate):Rotation;
+	public function rotation(rotate:Array<Float>):Rotation;
 
 	// projections...
 	@:overload(function(raw:Float->Float->Coordinate):Coordinate->Coordinate {})
@@ -162,7 +163,7 @@ extern class Projection {
 	@:overload(function():Null<Array<Coordinate>> {})
 	public function clipExtent(extent:Null<Array<Coordinate>>):Projection;
 
-	public function precission(precission:Float):Projection
+	public function precission(precission:Float):Projection;
 
 	public function stream (output:Dynamic):Dynamic;
 	public var raw : Dynamic;
@@ -191,7 +192,7 @@ extern class AlbersUsa {
 	@:overload(function():Float {})
 	public function scale(scale:Float):AlbersUsa;
 
-	public function precission(precission:Float):AlbersUsa
+	public function precission(precission:Float):AlbersUsa;
 
 	public function stream (output:Dynamic):Dynamic;
 }
