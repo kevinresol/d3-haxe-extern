@@ -209,7 +209,7 @@ typedef TransformStream = {stream:Stream->Stream};
 @:native("d3.geo.transform")
 extern class Stream {
 	public var stream : Stream;
-	public function point(x:Float, y:Float):Void
+	public function point(x:Float, y:Float):Void;
 	public function sphere():Void;
   	public function lineStart():Void;
   	public function lineEnd():Void;
