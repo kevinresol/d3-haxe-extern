@@ -51,6 +51,10 @@ extern class Geography {
 	public function orthographic():Projection;
 	public function stereographic():Projection;
 	public function transverseMercator():Projection;
+
+	// stream transforms
+	public function transform(methods:Dynamic):TransformStream;
+	public function clipExtent():Dynamic;
 }
 
 
@@ -195,4 +199,20 @@ extern class AlbersUsa {
 	public function precission(precission:Float):AlbersUsa;
 
 	public function stream (output:Dynamic):Dynamic;
+}
+
+
+/*https://github.com/mbostock/d3/wiki/Geo-Streams*/
+
+typedef TransformStream = {stream:Stream->Stream};
+
+@:native("d3.geo.transform")
+extern class Stream {
+	public var stream : Stream;
+	public function point(x:Float, y:Float):Void
+	public function sphere():Void;
+  	public function lineStart():Void;
+  	public function lineEnd():Void;
+  	public function polygonStart():Void;
+  	public function polygonEnd():Void;
 }
