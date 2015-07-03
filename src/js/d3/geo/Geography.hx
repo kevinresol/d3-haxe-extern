@@ -11,6 +11,7 @@ package js.d3.geo;
 extern class Geography {
 	/*https://github.com/mbostock/d3/wiki/Geo*/
 
+	// geo-paths
 	@:overload(function():Dynamic->Int->Path{})
 	@:overload(function():Dynamic->Path{})
 	public function path():Path;
@@ -31,18 +32,24 @@ extern class Geography {
 	public function rotation(rotate):Rotation;
 
 	// projections...
-	@:overload(function():Array<Float>->Array<Float>{})
-	public function mercator():Mercator;
+	@:overload(function(raw:Float->Float->Coordinate):Coordinate->Coordinate {})
+	public function projection(raw:Float->Float->Coordinate):Projection;
 
-	@:overload(function():Array<Float>->Array<Float>{})
-	public function albers():Albers;
+	public function projectionMutator(raw:Dynamic):Dynamic;
 
-	@:overload(function():Array<Float>->Array<Float>{})
-	public function albersUsa():AlbersUsa;
-
-	@:overload(function():Array<Float>->Array<Float>{})
-	public function azimuthal():Azimuthal;
-
+	public function albers():Conic;
+	public function albersUsa():Projection;
+	public function azimuthalEqualArea():Projection;
+	public function azimuthalEquidistant():Projection;
+	public function conicConformal():Conic;
+	public function conicEqualArea():Conic;
+	public function conicEquidistant():Conic;
+	public function equirectangular():Projection;
+	public function gnomonic():Projection;
+	public function mercator():Projection;
+	public function orthographic():Projection;
+	public function stereographic():Projection;
+	public function transverseMercator():Projection;
 }
 
 
@@ -132,52 +139,59 @@ extern class Rotation {
 
 
 /*https://github.com/mbostock/d3/wiki/Geo-Projections*/
-extern class Mercator {
-	public function invert(point:Array<Float>):Array<Float>;
+@:native("d3.geo.projection")
+extern class Projection {
+	public function invert(point:Coordinate):Coordinate;
 
-	@:overload(function():Float{})
-	public function scale(scale:Float):Mercator;
+	@:overload(function():Coordinate {})
+	public function rotate(rotation:Coordinate):Projection;
 
-	@:overload(function():Array<Float>{})
-	public function translate(offset:Array<Float>):Mercator;
+	@:overload(function():Coordinate {})
+	public function center(location:Coordinate):Projection;
+
+	@:overload(function():Coordinate {})
+	public function translate(point:Coordinate):Projection;
+
+	@:overload(function():Float {})
+	public function scale(scale:Float):Projection;
+
+
+	@:overload(function():Null<Float> {})
+	public function clipAngle(angle:Null<Float>):Projection;
+
+	@:overload(function():Null<Array<Coordinate>> {})
+	public function clipExtent(extent:Null<Array<Coordinate>>):Projection;
+
+	public function precission(precission:Float):Projection
+
+	public function stream (output:Dynamic):Dynamic;
+	public var raw : Dynamic;
 }
 
-extern class Albers {
-	public function invert(point:Array<Float>):Array<Float>;
 
-	@:overload(function():Array<Float>{})
-	public function origin(origin:Array<Float>):Albers;
-
-	@:overload(function():Array<Float>{})
-	public function parallels(parallels:Array<Float>):Albers;
-
-	@:overload(function():Float{})
-	public function scale(scale:Float):Albers;
-
-	@:overload(function():Array<Float>{})
-	public function translate(offset:Array<Float>):Albers;
+@:native("d3.geo.conic")
+extern class Conic extends Projection {
+	@:overload(function():Array<Float> {})
+	public function parallels (parallels:Array<Float>):Conic;
 }
 
+@:native("d3.geo.albers-usa")
 extern class AlbersUsa {
-	@:overload(function():Float{})
+	public function invert(point:Coordinate):Coordinate;
+
+	@:overload(function():Coordinate {})
+	public function rotate(rotation:Coordinate):AlbersUsa;
+
+	@:overload(function():Coordinate {})
+	public function center(location:Coordinate):AlbersUsa;
+
+	@:overload(function():Coordinate {})
+	public function translate(point:Coordinate):AlbersUsa;
+
+	@:overload(function():Float {})
 	public function scale(scale:Float):AlbersUsa;
 
-	@:overload(function():Array<Float>{})
-	public function translate(offset:Array<Float>):AlbersUsa;
-}
+	public function precission(precission:Float):AlbersUsa
 
-extern class Azimuthal {
-
-	@:overload(function():String{})
-	public function mode(mode:String):Azimuthal;
-
-	@:overload(function():Array<Float>{})
-	public function origin(origin:Array<Float>):Azimuthal;
-
-	@:overload(function():Float{})
-	public function scale(scale:Float):Azimuthal;
-
-	@:overload(function():Array<Float>{})
-	public function translate(offset:Array<Float>):Azimuthal;
-
+	public function stream (output:Dynamic):Dynamic;
 }
