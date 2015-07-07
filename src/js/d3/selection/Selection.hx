@@ -200,7 +200,8 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	?capture
 	 * @return
 	 */
-	@:overload(function(type:Dynamic, ?capture:Bool):Selection {})
+	//@:overload(function(type:Dynamic, ?capture:Bool):Selection {})
+	@:overload(function(type:String, ?listener:Dynamic->Void, ?capture:Bool):Selection {})
 	public function on(type:String, ?listener:Dynamic->Int->Void, ?capture:Bool):Selection;
 
 
@@ -208,7 +209,7 @@ extern class Selection implements ArrayAccess<Element> {
 	 * Starts a transition for the current selection.
 	 * Transitions behave much like selections, except operators animate smoothly over time rather than applying instantaneously.
 	 */
-	public function transition(name:Null<String>):Transition;
+	public function transition(?name:Null<String>):Transition;
 
 
 
