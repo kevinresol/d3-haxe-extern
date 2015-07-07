@@ -25,6 +25,9 @@ extern class Scale {
 	public function category20c():Ordinal;
 }
 
+typedef ScaleFn = Float->Float;
+
+@:native("d3.scale.linear")
 extern class Linear {
 	public function invert(y:Dynamic):Dynamic;
 
@@ -48,6 +51,7 @@ extern class Linear {
 	public function copy():Linear;
 }
 
+@:native("d3.scale.identity")
 extern class Identity {
 	public function invert(x:Dynamic):Dynamic;
 
@@ -62,6 +66,7 @@ extern class Identity {
 	public function copy():Identity;
 }
 
+@:native("d3.scale.power")
 extern class Power {
 	public function invert(y:Dynamic):Dynamic;
 
@@ -88,6 +93,7 @@ extern class Power {
 	public function copy():Power;
 }
 
+@:native("d3.scale.log")
 extern class Log {
 	public function invert(y:Dynamic):Dynamic;
 
@@ -112,6 +118,7 @@ extern class Log {
 	public function copy():Log;
 }
 
+@:native("d3.scale.quantize")
 extern class Quantize {
 	public function invertExtend(y:Dynamic):Dynamic;
 
@@ -124,6 +131,7 @@ extern class Quantize {
 	public function copy():Quantize;
 }
 
+@:native("d3.scale.quantile")
 extern class Quantile {
 	public function invertExtend(y:Dynamic):Dynamic;
 
@@ -137,6 +145,7 @@ extern class Quantile {
 	public function copy():Quantile;
 }
 
+@:native("d3.scale.treshold")
 extern class Threshold {
 	public function invertExtend(y:Dynamic):Dynamic;
 
@@ -149,6 +158,7 @@ extern class Threshold {
 	public function copy():Threshold;
 }
 
+@:native("d3.scale.ordinal")
 extern class Ordinal {
 
 	@:overload(function():Array<Float> {})
