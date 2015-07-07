@@ -43,11 +43,11 @@ extern class Zoom {
     @:overload(function():Array<Float> {})
     public function size(size:Array<Float>):Zoom;
 
-    @:overload(function():Float {})
-    public function x(x:Float):Zoom;
+    @:overload(function():Dynamic {})
+    public function x(x:Dynamic):Zoom;
 
-    @:overload(function():Float {})
-    public function y(y:Float):Zoom;
+    @:overload(function():Dynamic {})
+    public function y(y:Dynamic):Zoom;
 
 	public function on(type:String, listener:Dynamic):Zoom;
 }
