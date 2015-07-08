@@ -36,11 +36,9 @@ extern class Selection implements ArrayAccess<Element> {
 	* @param	value
 	* @return
 	*/
-	@:overload(function(name:String, value:String):Selection{})
-	@:overload(function(name:String, value:Void->String):Selection{})
-	@:overload(function(name:String, value:Dynamic->String):Selection{})
-	@:overload(function(name:String, value:Dynamic->Int->String):Selection{})
-	public function classed(name:String, value:String):Selection;
+	@:overload(function(name:Dynamic):Selection {})
+	@:overload(function(name:String):Bool {})
+	public function classed(name:String, value:Dynamic):Selection;
 
 
 	/**
