@@ -13,7 +13,7 @@ package js.d3.svg;
 typedef PointArr       = Array<Float>;
 typedef PointObj       = {x:Float,y:Float};
 typedef SvgInterpolate = EitherType<String,Array<PointArr>->String>;
-typedef SvgCoordinate  = EitherType<Float,Dynamic->Float>;
+typedef SvgCoordinate  = EitherType<Float, EitherType<Dynamic->Float, Dynamic->Int->Float>>;
 typedef SvgPointArg    = EitherType<PointArr,PointArr->Float>;
 typedef SvgSelection   = EitherType<Selection,Transition>;
 
