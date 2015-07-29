@@ -16,7 +16,8 @@ typedef TimeRange = Date->Date->?Int->Array<Date>;
 @:native("d3.time")
 extern class Time {
 	public var scale     : EitherType<Scale, ?Dynamic->Scale>;
-	public var format    : EitherType<TimeFormat, String->EitherType<TimeFormatter, Date->String>>;
+
+	public var format    : EitherType<String->TimeFormatter, EitherType<String->(Date->String), TimeFormat>>;
 
 	public var interval  : EitherType<Interval, Date->Date>;
 	public var second    : Interval;
