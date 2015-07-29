@@ -176,6 +176,7 @@ typedef Range = Array<Float>;
 typedef Tresholds = Range;
 typedef HistogramRange = EitherType<Range, EitherType<Array<Dynamic>->Range, Array<Dynamic>->Int->Range>>;
 typedef HistogramBins  = EitherType<Float, EitherType<Tresholds, Range->Tresholds>>;
+typedef HistogramBin   = {x:Float, y:Float, dx:Float};
 
 @:native("d3.layout.histogram")
 extern class Histogram implements ArrayAccess<Dynamic>{
@@ -188,7 +189,7 @@ extern class Histogram implements ArrayAccess<Dynamic>{
 	public function range(range:HistogramRange):Histogram;
 
 	@:overload(function():HistogramBins{})
-	public function bins(bins:HistogramBins):Histogram;
+	public function bins(bins:HistogramBins):Array<EitherType<HistogramBin, Array<Float>>>; // Dynamic is an array with keys and 3 properties: dx,x,y
 
 	@:overload(function():Bool{})
 	public function frequency(frequency:Bool):Histogram;
