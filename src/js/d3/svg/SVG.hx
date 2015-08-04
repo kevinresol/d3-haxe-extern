@@ -215,8 +215,8 @@ extern class Axis {
 	@:overload(function(ticks:Int):Axis{})
 	public function ticks(fb:Dynamic, i:Int):Axis;
 
-	@:overload(function():Null<Array<Int>>{})
-	public function tickValues(?values:Array<Int>):Axis;
+	@:overload(function():Null<Array<Dynamic>>{})
+	public function tickValues(?values:Array<Dynamic>):Axis;
 
 	@:overload(function():Float{})
 	public function tickSize(inner:Float, ?outer:Float):Axis;
