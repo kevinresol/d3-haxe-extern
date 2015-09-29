@@ -155,7 +155,8 @@ extern class Selection implements ArrayAccess<Element> {
 	 * @param	selector
 	 * @return
 	 */
-	@:overload(function(selector:Dynamic->Int->Selection):Selection{})
+	@:overload(function(selector:Dynamic->Int->Bool):Selection{})
+	@:overload(function(selector:Dynamic->Bool):Selection{})
 	public function filter(selector:String):Selection;
 
 
