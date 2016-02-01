@@ -117,7 +117,7 @@ extern class D3
 	public static function min<T>(arr:Array<T>,?accessor:T->Float):Float;
 	public static function max<T>(arr:Array<T>,?accessor:T->Float):Float;
 
-	public static function extend<T>(arr:Array<T>,?accessor:T->T):Array<T>;
+	public static function extent<T>(arr:Array<T>,?accessor:T->T):Array<T>;
 	public static function sum(arr:Array<Float>,?accessor:Float->Float):Float;
 	public static function mean(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
 	public static function median(arr:Array<Float>,?accessor:Float->Float):Null<Float>;
