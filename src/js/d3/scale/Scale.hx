@@ -29,6 +29,9 @@ typedef ScaleFn = Float->Float;
 
 @:native("d3.scale.linear")
 extern class Linear {
+    @:selfCall
+    public function call(e:Dynamic):Dynamic;
+	
 	public function invert(y:Dynamic):Dynamic;
 
 	@:overload(function():Array<Float> {})
